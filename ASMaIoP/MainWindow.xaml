@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ASMaIoP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="Авторизация" Width="400" Height="200"  WindowStartupLocation="CenterScreen">
+    <Grid x:Name="MainGrid" Width="auto" Height="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="80*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu x:Name="allMenu" Grid.Row="0" Height="auto" VerticalAlignment="Top" IsEnabled="False">
+            <MenuItem Header="Профиль">
+                <MenuItem Header="Свой профиль" Click="MyProfile_Click" ></MenuItem>
+                <Separator/>
+                <MenuItem Header="Создать профиль" Click="CreateProfile_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Поручение" >
+                <MenuItem Header="Список поручений" Click="List_Click"></MenuItem>
+                <MenuItem Header="Создать поручение" Click="CreateList_Click"></MenuItem>
+                <Separator/>
+                <MenuItem Header="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Инвентарь" >
+                <MenuItem Header="Всё оборудование" Click="ThisBar_CLick1"></MenuItem>
+                <MenuItem Header="Добавить оборудование" Click="ThisBar_CLick2"></MenuItem>
+                <Separator/>
+            </MenuItem>
+        </Menu>
+        <ContentControl x:Name="GUI" Width="auto" Grid.Row="1"  Height="auto"/>
     </Grid>
 </Window>
