@@ -9,6 +9,8 @@
         // Не получилось открыть файл
         FailedToOpenFile,
         // Не получилось запарсить
-        FailedToParse
+        FailedToParse,
+        // Объект не инициализирован
+        ObjectNotInitialized
     }
 }
