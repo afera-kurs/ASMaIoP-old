@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ASMaIoP.General/1.0.0": {
+        "runtime": {
+          "ASMaIoP.General.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ASMaIoP.General/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,10 @@
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\bin\Debug\netcoreapp3.1\ASMaIoP.General.deps.json
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\bin\Debug\netcoreapp3.1\ASMaIoP.General.dll
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\bin\Debug\netcoreapp3.1\ASMaIoP.General.pdb
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.csproj.AssemblyReference.cache
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.AssemblyInfoInputs.cache
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.AssemblyInfo.cs
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.csproj.CoreCompileInputs.cache
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.dll
+C:\Users\minec\source\repos\ASMaIoP\ASMaIoP.General\obj\Debug\netcoreapp3.1\ASMaIoP.General.pdb
