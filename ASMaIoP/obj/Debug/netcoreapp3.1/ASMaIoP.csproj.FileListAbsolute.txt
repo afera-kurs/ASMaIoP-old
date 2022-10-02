@@ -21,3 +21,12 @@ C:\Users\minec\source\repos\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.cspr
 C:\Users\minec\source\repos\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.dll
 C:\Users\minec\source\repos\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.pdb
 C:\Users\minec\source\repos\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.genruntimeconfig.cache
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.csproj.AssemblyReference.cache
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\UserControl\MyProfile.g.cs
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\UserControl\WaitLogins.g.cs
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\App.g.cs
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP_MarkupCompile.cache
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP_MarkupCompile.lref
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.dll
+D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\ASMaIoP.pdb

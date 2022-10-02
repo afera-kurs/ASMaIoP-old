@@ -7,7 +7,21 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControl\MyProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\WaitLogins.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\MyProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\WaitLogins.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
