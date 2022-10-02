@@ -23,6 +23,65 @@ namespace ASMaIoP.General
             return m_ConfigurationTable.ContainsKey(sVarName);
         }
 
+        public ErrorCode ParseFromString(string sData)
+        {
+            // удоляем ненужные символы
+            string sFormatedLine = sData.Replace(" ", String.Empty);
+            sFormatedLine = sFormatedLine.Replace("\n", String.Empty);
+            sFormatedLine = sFormatedLine.Replace("\t", String.Empty);
+
+            // указывает на индекс текущего символа в строке
+            int i = 0;
+
+            List<char> lTmpWord = new List<char>();
+            string sVarName = "";
+            string sVarValue = "";
+            bool bIsNameFind = false;
+
+            for (; i < sFormatedLine.Length; i++)
+            {
+                //получаем текуший символ из отформативанной строки
+                char cCurrentSym = sFormatedLine[i];
+
+                // если текуший символ будет '=' следовательно мы нашли имя переменной так как имя находиться до занака '='
+                if (cCurrentSym == '=')
+                {
+                    // Конвертируем лист в строку
+                    sVarName = new string(lTmpWord.ToArray());
+                    // Очищаем лист
+                    lTmpWord.Clear();
+                    // узкаваем что имя найдено
+                    bIsNameFind = true;
+                    // Пропускаем текущую итерацю
+                    continue;
+                }
+
+                // если текуший символ будет ';' следовательно мы нашли значение переменной так как значение находиться до занака ';'
+                if (cCurrentSym == ';')
+                {
+                    // Проверяем чтобы имя было найдено
+                    if (!bIsNameFind) return ErrorCode.FailedToParse;
+                    // Конвертируем лист в строку
+                    sVarValue = new string(lTmpWord.ToArray());
+                    // Очищаем лист
+                    lTmpWord.Clear();
+                    // Обнуляем переменную храняшую состояния (найдено ли имя)
+                    bIsNameFind = false;
+
+                    // Добавляем нашу переменную в хеш таблицу
+                    m_ConfigurationTable.Add(sVarName, sVarValue);
+                    // Пропускаем текущую итерацю
+                    continue;
+                }
+
+                // Добавляем текуший символ в лист
+                lTmpWord.Add(cCurrentSym);
+            }
+
+            return ErrorCode.SUCCESS;
+        }
+
+
         //Метод парсит конфигурационный файл в хеш таблицу
         public ErrorCode ParseFromFile(string sFileName)
         {
