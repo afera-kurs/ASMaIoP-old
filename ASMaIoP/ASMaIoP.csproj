@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ASMaIoP.General\ASMaIoP.General.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserControl\PhotoUsers\" />
+  </ItemGroup>
+
 </Project>

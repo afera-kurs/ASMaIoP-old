@@ -22,6 +22,18 @@ namespace ASMaIoP.UserControl
         public MyProfile()
         {
             InitializeComponent();
+            ASMaIoP.General.Config cfg = new ASMaIoP.General.Config();
+            WriteChtoto(/* cfg[initials], cfg[ID], cfg[lvl] */);
+        }
+        public void WriteChtoto(/* string initials, int ID, int lvl */)
+        {
+            ListBoxPersonData.Items[1] = "imy"/*initials*/;
+            ListBoxPersonData.Items[2] = "imy"/*ID*/;
+            ListBoxPersonData.Items[3] = "imy"/*lvl*/;
+        }
+        private void UpdatePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="ASMaIoP.UserControl.CustomElement.Calendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASMaIoP.UserControl.CustomElement"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="ПН" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="ВТ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="СР" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="3" Grid.Row="1" Text="ЧТ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="4" Grid.Row="1" Text="ПТ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="5" Grid.Row="1" Text="СБ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="6" Grid.Row="1" Text="ВС" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Grid.ColumnSpan="7">
+            <TextBlock Height="50" x:Name="MonthAndAge" Text="Октябрь 2022" FontSize="20"></TextBlock>
+        </StackPanel>
+        <ListBox Grid.Row="2" Grid.RowSpan="6" Grid.ColumnSpan="7">
+            <ListBoxItem Height="300">
+                <Grid Height="290" Width="386">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ListBoxItem></ListBoxItem>
+                </Grid>
+            </ListBoxItem>
+        </ListBox>
+    </Grid>
+</UserControl>

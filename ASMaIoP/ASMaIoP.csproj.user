@@ -7,6 +7,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControl\CreateProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\CustomElement\Calendar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\ListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControl\MyProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,6 +25,15 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\CreateProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\CustomElement\Calendar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\ListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControl\MyProfile.xaml">

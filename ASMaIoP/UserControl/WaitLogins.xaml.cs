@@ -21,10 +21,12 @@ namespace ASMaIoP.UserControl
     {
         MainWindow wnd;
 
-        public WaitLogins(MainWindow wnd)
+        public WaitLogins(MainWindow wnd)// Принимаем
         {
             InitializeComponent();
             this.wnd = wnd;
+            wnd.ContentView.HorizontalAlignment = HorizontalAlignment.Center;
+            wnd.ContentView.VerticalAlignment = VerticalAlignment.Center;
         }
 
         private void login_Click(object sender, RoutedEventArgs e)

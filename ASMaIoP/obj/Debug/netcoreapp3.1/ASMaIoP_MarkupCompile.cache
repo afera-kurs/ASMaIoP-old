@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 D:\source\repos\git\ASMaIoP\App.xaml
-3-1173492568
+5-1215679744
 
-5-2080145952
+7328450833
 193-1886424826
-MainWindow.xaml;UserControl\MyProfile.xaml;UserControl\WaitLogins.xaml;
+MainWindow.xaml;UserControl\CreateProfile.xaml;UserControl\CustomElement\Calendar.xaml;UserControl\MyProfile.xaml;UserControl\WaitLogins.xaml;
 
-True
+False
 
