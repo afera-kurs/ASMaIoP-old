@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\source\repos\git\ASMaIoP\obj\Debug\netcoreapp3.1\
+C:\Users\minec\source\repos\ASMaIoP_repos\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\
 ASMaIoP
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-D:\source\repos\git\ASMaIoP\App.xaml
-5-1215679744
+C:\Users\minec\source\repos\ASMaIoP_repos\ASMaIoP\ASMaIoP\App.xaml
+61315287660
 
-7328450833
-193-1886424826
-MainWindow.xaml;UserControl\CreateProfile.xaml;UserControl\CustomElement\Calendar.xaml;UserControl\MyProfile.xaml;UserControl\WaitLogins.xaml;
+8-1357354215
+1932111111767
+MainWindow.xaml;UserControl\CreateProfile.xaml;UserControl\CustomElement\Calendar.xaml;UserControl\ListView.xaml;UserControl\MyProfile.xaml;UserControl\WaitLogins.xaml;
 
 False
 

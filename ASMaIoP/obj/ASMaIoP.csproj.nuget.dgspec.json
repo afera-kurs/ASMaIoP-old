@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.csproj": {}
+    "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP\\ASMaIoP.csproj": {}
   },
   "projects": {
-    "D:\\source\\repos\\git\\ASMaIoP.General\\ASMaIoP.General.csproj": {
+    "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\source\\repos\\git\\ASMaIoP.General\\ASMaIoP.General.csproj",
+        "projectUniqueName": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj",
         "projectName": "ASMaIoP.General",
-        "projectPath": "D:\\source\\repos\\git\\ASMaIoP.General\\ASMaIoP.General.csproj",
-        "packagesPath": "C:\\Users\\lerik\\.nuget\\packages\\",
-        "outputPath": "D:\\source\\repos\\git\\ASMaIoP.General\\obj\\",
+        "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj",
+        "packagesPath": "C:\\Users\\minec\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lerik\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\minec\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -64,20 +64,20 @@
         }
       }
     },
-    "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.csproj": {
+    "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP\\ASMaIoP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.csproj",
+        "projectUniqueName": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP\\ASMaIoP.csproj",
         "projectName": "ASMaIoP",
-        "projectPath": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.csproj",
-        "packagesPath": "C:\\Users\\lerik\\.nuget\\packages\\",
-        "outputPath": "D:\\source\\repos\\git\\ASMaIoP\\obj\\",
+        "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP\\ASMaIoP.csproj",
+        "packagesPath": "C:\\Users\\minec\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lerik\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\minec\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -93,8 +93,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\source\\repos\\git\\ASMaIoP.General\\ASMaIoP.General.csproj": {
-                "projectPath": "D:\\source\\repos\\git\\ASMaIoP.General\\ASMaIoP.General.csproj"
+              "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
+                "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj"
               }
             }
           }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32922.545
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASMaIoP.Server", "ASMaIoP.Server\ASMaIoP.Server.csproj", "{3DFFEBE2-2AA6-431B-832E-1E8A2031EF7C}"
 EndProject

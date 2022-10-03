@@ -11,6 +11,8 @@
         // Не получилось запарсить
         FailedToParse,
         // Объект не инициализирован
-        ObjectNotInitialized
+        ObjectNotInitialized,
+        // Неверный сетевой адрес
+        WorngNetAddress
     }
 }
