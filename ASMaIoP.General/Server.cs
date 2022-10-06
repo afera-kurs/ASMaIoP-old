@@ -7,6 +7,7 @@ using System.Threading;
 using System.Net.NetworkInformation;
 using System.Net.Http;
 using System.ComponentModel;
+using ASMaIoP.General.Client;
 
 namespace ASMaIoP.General
 {
@@ -19,6 +20,44 @@ namespace ASMaIoP.General
             TcpClient m_TCPClient;
             //поток данных для доступа к сети.
             NetworkStream m_Stream;
+
+            Thread m_ProccessThread;
+
+            int m_nId;
+
+            public Connection()
+            {
+
+            }
+
+            public void ProcessHandler()
+            {
+                while(true)
+                {
+                    if(!Process())
+                    {
+                        Disconnect();
+                        
+                        return;
+                    }
+                }
+            }
+
+            public virtual bool Process() 
+            {
+                return false;
+            }
+
+            public void SetClient(TcpClient client, int nId)
+            {
+                m_nId = nId;
+                m_TCPClient = client;
+                // получаем поток для отправки и принятия данных
+                m_Stream = client.GetStream();
+                // Запускаем поток обработчика клиента
+                m_ProccessThread = new Thread(ProcessHandler);
+                m_ProccessThread.Start();
+            }
 
             public Connection(TcpClient client)
             {
@@ -83,15 +122,15 @@ namespace ASMaIoP.General
             }
         }
 
-        // Данный класс описывает сервер
-        public class Server
+        // Данный класс описывает сервер 
+        public class Server<T_connection> where T_connection : Connection, new()
         {
             // прослушиватель - прослушивает подключений от TCP клиентов сети
             TcpListener listener;
             // Поток для прослушивания подключений
             Thread serverListenThread;
             // Сами подключения
-            List<Connection> connections;
+            protected List<T_connection> connections;
 
             public Server(short nPort)
             {
@@ -109,7 +148,10 @@ namespace ASMaIoP.General
                     // AcceptTcpClient - данный метод позволяет принять подключение клиента
                     TcpClient client = listener.AcceptTcpClient();
                     // Создаем класс опписывающий подключение клиента и добавляем его в лист
-                    connections.Add(new Connection(client));
+
+                    T_connection con = new T_connection();
+                    con.SetClient(client, connections.Count);
+                    connections.Add(con);
                 }
             }
 

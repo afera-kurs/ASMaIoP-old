@@ -12,11 +12,7 @@ namespace ASMaIoP.General.Client
         IPEndPoint m_EndPoint;
 
         TcpClient m_TCPClient;
-        NetworkStream m_Stream;
-
-        public Client()
-        {
-        }
+         NetworkStream m_Stream;
 
         // Данный метод позволяет проверить является ли введенный аддресс доменом
         static public bool IsDomain(string sAddr)
