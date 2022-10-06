@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ASMaIoP.UserControl.MyProfile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASMaIoP.UserControl"
+              mc:Ignorable="d" 
+             d:Width="800" d:Height="400">
+    <Grid Width="800" Height="400">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="0" >
+            <ListBox x:Name="ListBoxInfo"  >
+                <TextBlock FontWeight="Bold" Text="Содрудик" />
+                <ListBoxItem Background="LightGray">ФИО :</ListBoxItem>
+                <ListBoxItem Background="LightGray">ID :</ListBoxItem>
+                <ListBoxItem Background="LightGray">Уровень доступа :</ListBoxItem>
+                <ListBoxItem Background="LightGray">Должность:</ListBoxItem>
+                <ListBoxItem Background="LightGray">ФИО:</ListBoxItem>
+                <ListBoxItem Background="LightGray">ФИО:</ListBoxItem>
+            </ListBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <ListBox x:Name="ListBoxPersonData">
+                <TextBlock></TextBlock>
+                <ListBoxItem>a</ListBoxItem>
+                <ListBoxItem>a</ListBoxItem>
+                <ListBoxItem>a</ListBoxItem>
+                <ListBoxItem>a</ListBoxItem>
+                <ListBoxItem>a</ListBoxItem>
+                <ListBoxItem>a</ListBoxItem>
+            </ListBox>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Margin="20">
+            <Image x:Name="ImageFirst" Source="PhotoUsers/234.jpg" Width ="120"/>
+            <Button x:Name="UpdatePhoto" Content="Изменить фото" Click="UpdatePhoto_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            
+        </StackPanel>
+    </Grid>
+</UserControl>
