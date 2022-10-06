@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\minec\\source\\repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
+      "projectUniqueName": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
       "projectName": "ASMaIoP.Server",
-      "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
+      "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
       "packagesPath": "C:\\Users\\minec\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP\\ASMaIoP.Server\\obj\\",
+      "outputPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -59,8 +59,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\minec\\source\\repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
-              "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj"
+            "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
+              "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj"
             }
           }
         }

@@ -16,7 +16,7 @@ namespace ASMaIoP.UserControl
     /// <summary>
     /// Логика взаимодействия для ListView.xaml
     /// </summary>
-    public partial class ListView : UserControl
+    public partial class ListView : System.Windows.Controls.UserControl
     {
         public ListView()
         {

@@ -6,7 +6,6 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.ComponentModel;
 
 namespace ASMaIoP.General
@@ -17,15 +16,15 @@ namespace ASMaIoP.General
         public class Connection
         {
             //Класс описывающий соединение клиента в System.Net.Sockets
-            TcpClient tcpClient;
+            TcpClient m_TCPClient;
             //поток данных для доступа к сети.
-            NetworkStream stream;
+            NetworkStream m_Stream;
 
             public Connection(TcpClient client)
             {
-                tcpClient = client;
+                m_TCPClient = client;
                 // получаем поток для отправки и принятия данных
-                stream = client.GetStream();
+                m_Stream = client.GetStream();
             }
 
             // Данный метод позволяет отправлять int переменную
@@ -34,7 +33,7 @@ namespace ASMaIoP.General
                 // конвертируем int в байты
                 byte[] bytes = BitConverter.GetBytes(nData);
                 // отправляем полученные байты клиенту
-                stream.Write(bytes, 0, sizeof(int));
+                m_Stream.Write(bytes, 0, sizeof(int));
             }
 
             // Данный метод позволяет считать int с клиента
@@ -43,7 +42,7 @@ namespace ASMaIoP.General
                 // Резервируем байты для принятия данных
                 byte[] data = new byte[sizeof(int)];
                 // принимает байты с клиента
-                stream.Read(data, 0, sizeof(int));
+                m_Stream.Read(data, 0, sizeof(int));
                 // конвертируем полуечнные данные в int
                 return BitConverter.ToInt32(data, 0);
             }
@@ -58,7 +57,7 @@ namespace ASMaIoP.General
                 // отправляем размер строки клиенту
                 Write(nSize);
                 // отправляем байты строки клиенту
-                stream.Write(data, 0, data.Length);
+                m_Stream.Write(data, 0, data.Length);
             }
 
             // Данный метод позволяет принять 
@@ -69,7 +68,7 @@ namespace ASMaIoP.General
                 // резервируем память под строку
                 byte[] data = new byte[nSize];
                 // Получаем саму строку у клиента
-                stream.Read(data, 0, nSize);
+                m_Stream.Read(data, 0, nSize);
                 // Получаем конвертируем байты в строку
                 return Encoding.UTF8.GetString(data);
             }
@@ -78,9 +77,9 @@ namespace ASMaIoP.General
             public void Disconnect()
             {
                 // разрываем соединение
-                tcpClient.Close();
+                m_TCPClient.Close();
                 // закрываем поток данных
-                stream.Close();
+                m_Stream.Close();
             }
         }
 
@@ -98,7 +97,7 @@ namespace ASMaIoP.General
             {
                 listener = new TcpListener(nPort);
             }
-            
+
             // Данный метод описывает поток прослушивателя соеденений
             void ListenThread()
             {
@@ -137,7 +136,7 @@ namespace ASMaIoP.General
                 // останавливает прослушиваетль порта
                 listener.Stop();
                 // отключаем всех клиентов
-                foreach(Connection conn in connections)
+                foreach (Connection conn in connections)
                 {
                     conn.Disconnect();
                 }

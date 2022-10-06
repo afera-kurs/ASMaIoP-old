@@ -39,7 +39,7 @@
             </ListBox>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Margin="20">
-            <Image x:Name="ImageFirst" Source="D:\source\repos\git\ASMaIoP\UserControl\PhotoUsers\234.jpg" Width ="120"/>
+            <Image x:Name="ImageFirst" Source="234.jpg" Width ="120"/>
             <Button x:Name="UpdatePhoto" Content="Изменить фото" Click="UpdatePhoto_Click"/>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1">
