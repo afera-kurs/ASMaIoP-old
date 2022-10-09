@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:ASMaIoP.UserControl"
                mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="800">
-    <Grid Background="LightGray" Margin="10">
+    <Grid >
         <StackPanel VerticalAlignment="Center">
             <Label Content="Произведите авторизацию!" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name="login" Content="asd" Margin="20" Click="login_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

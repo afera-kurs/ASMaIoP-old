@@ -7,16 +7,25 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControl\AddItemsInventory.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControl\CreateProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\CreateTask.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControl\CustomElement\Calendar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControl\ListView.xaml.cs">
+    <Compile Update="UserControl\Inventory.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControl\MyProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControl\TaskList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControl\WaitLogins.xaml.cs">
@@ -27,16 +36,25 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControl\AddItemsInventory.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControl\CreateProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\CreateTask.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControl\CustomElement\Calendar.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControl\ListView.xaml">
+    <Page Update="UserControl\Inventory.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControl\MyProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl\TaskList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControl\WaitLogins.xaml">

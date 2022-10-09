@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ASMaIoP.UserControl"
              mc:Ignorable="d" 
              d:Height="auto" d:Width="auto">
-    <Grid Width="800" Height="400" Background="White">
+    <Grid Width="800" Height="400">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -28,7 +28,7 @@
             </ListBox>
         </StackPanel>
         <StackPanel Grid.Column="2">
-            <ListBox x:Name="ListBoxPersonData" Height="148">
+            <ListBox x:Name="ListBoxPersonData" Height="148" Width="180" HorizontalAlignment="Left">
                 <TextBlock Height="20" FontWeight="Bold"><Run Text="Введите данные:"/></TextBlock>
                 <ListBoxItem Height="20" >
                     <TextBox x:Name="NameTextBox" Width="160"/>

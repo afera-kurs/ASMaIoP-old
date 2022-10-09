@@ -9,11 +9,10 @@ namespace ASMaIoP.General.Client
 {
     public class Client
     {
-        IPEndPoint m_EndPoint;
-
+        string sIP;
+        int nPort;
         TcpClient m_TCPClient;
-         NetworkStream m_Stream;
-
+        NetworkStream m_Stream;
         // Данный метод позволяет проверить является ли введенный аддресс доменом
         static public bool IsDomain(string sAddr)
         {
@@ -26,53 +25,34 @@ namespace ASMaIoP.General.Client
                 if (char.IsLetter(cSym))
                     return true;
             }
-
             return false;
         }
-
         // Данный метод позволяет установить адресс сервера к которому будет подключаться клиент
         public ErrorCode SetupAddress(string sAddr)
         {
-            IPAddress IP;
-            int nPort;
-
             try
             {
                 // Мы разделяем наш аддрес чтобы оттдельно получить IP и порт
                 // Пример: 127.0.0.1:653
                 string[] sAddr2 = sAddr.Split(':');
                 // Поверяем является ли аддрес доменом
-                if (!IsDomain(sAddr))
-                {
-                    //  если он не является мы парсем его в IPAddress
-                    IP = IPAddress.Parse(sAddr);
-                }
-                else
-                {
-                    // если же нам ввели домен то мы получаем из него IP адресс
-                    IPHostEntry ipHostInfo = Dns.GetHostEntry(sAddr2[0]);
-                    IP = ipHostInfo.AddressList[0];
-                }
+                sIP = sAddr2[0];
                 // Парсим воторую часть строки в порт
                 nPort = int.Parse(sAddr2[1]);
-
-                m_EndPoint = new IPEndPoint(IP, nPort);
             }
             catch
             {
                 return ErrorCode.WorngNetAddress;
             }
-
             return ErrorCode.SUCCESS;
         }
-
         // Данный метод нам позволяет произвести соединение с сервером
         public ErrorCode Connect()
         {
             try
             {
                 // производим подключение
-                m_TCPClient = new TcpClient(m_EndPoint);
+                this.m_TCPClient = new TcpClient(sIP, nPort);
                 // получаем поток
                 m_Stream = m_TCPClient.GetStream();
             }
@@ -83,7 +63,6 @@ namespace ASMaIoP.General.Client
 
             return ErrorCode.SUCCESS;
         }
-
         // Данный метод позволяет разорвать соединение с сервером
         public void Close()
         {
@@ -92,7 +71,6 @@ namespace ASMaIoP.General.Client
             // закрываем соединение
             m_TCPClient.Close();
         }
-
         // Данный метод позволяет отправлять int переменную
         public void Write(int nData)
         {
@@ -101,7 +79,6 @@ namespace ASMaIoP.General.Client
             // отправляем полученные байты клиенту
             m_Stream.Write(bytes, 0, sizeof(int));
         }
-
         // Данный метод позволяет считать int с клиента
         public int ReadInt()
         {
@@ -112,12 +89,11 @@ namespace ASMaIoP.General.Client
             // конвертируем полуечнные данные в int
             return BitConverter.ToInt32(data, 0);
         }
-
         // Данный метод позволяет отправлять строку клиенту
         public void Write(string sData)
         {
             // конвертируем строку в байты
-            byte[] data = Encoding.Unicode.GetBytes(sData);
+            byte[] data = Encoding.UTF8.GetBytes(sData);
             // получаем количество байт
             int nSize = sData.Length;
             // отправляем размер строки клиенту
@@ -125,7 +101,6 @@ namespace ASMaIoP.General.Client
             // отправляем байты строки клиенту
             m_Stream.Write(data, 0, data.Length);
         }
-
         // Данный метод позволяет принять 
         public string ReadString()
         {

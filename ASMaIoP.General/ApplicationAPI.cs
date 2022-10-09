@@ -6,60 +6,46 @@ using System.Threading;
 
 namespace ASMaIoP.General.Client
 {
-    /*
-            serialPort = new SerialPort();
-            serialPort.PortName = "COM4";
-            serialPort.BaudRate = 9600;
-            serialPort.Open();
-            while (true)
-     */
-
     public static class ArduinoApplicationAPI
     {
+        // Обявляем переменую храняшую в себе обьект класса SerialPort благодаря которому происходить общение с ардуино
         static SerialPort CurrentArduionoPort = null;
-        static Thread FindThread = null;
-        static bool IsFind = false;
-        static bool ShutdownFindThread = false;
-
-        private static void Finder()
+        // Обьявляем делегата который будет вызываться при получении данных с сериал порта
+        public static CardReceivedHandler cardReceivedHandler = null;
+        // Данный метод будет открывать порт для общения с ардуино
+        public static bool OpenArduino(string sPortName)
         {
-            while (true)
-            {
-                if (ShutdownFindThread) return;
-                if (CurrentArduionoPort.BytesToRead > 0)
-                {
-                    if (CurrentArduionoPort.ReadLine() == "ASMaIoP_DEVICE_0")
-                    {
-                        CurrentArduionoPort.Write("ASMaIoP_APPLCATION_1");
-                        IsFind = true;
-                        return;
-                    }
-                }
-            }
-        }
-
-        public static bool StartFindArduino()
-        {
+            // создаем экземпляр класса SerialPort
             CurrentArduionoPort = new SerialPort();
-            CurrentArduionoPort.PortName = "COM3";
+            // Устанавливаем Название порта который будем открывать
+            CurrentArduionoPort.PortName = sPortName;
+            // Скорость передачи в бодах
             CurrentArduionoPort.BaudRate = 9600;
-            CurrentArduionoPort.Open();
 
-            // test arduino protocol
-            FindThread = new Thread(Finder);
-            FindThread.Start();
-            return true;
+            CurrentArduionoPort.DataReceived += port_DataReceived; // Присвайваем делегату метод port_DataReceived
+            try
+            {
+                CurrentArduionoPort.Open(); //Открываем serial порт
+            }
+            catch
+            {
+                return false; //Возвращаем false если порт не удалось открыть
+            }
+            return true; //Возварщаем если всё успешно
         }
 
-        public static bool GetFindValue()
-        {
-            return IsFind;
-        }
+        public delegate void CardReceivedHandler(string CardId); //объявляем сигнатуру делигата принимающий ID карты пользвателя 
 
-        public static void ShutdownFinder()
+        static void port_DataReceived(object sender, SerialDataReceivedEventArgs e) //Стандартное событие для данных с SerialPort
         {
-            ShutdownFindThread = true;
-            FindThread.Join();
+            string CardId = CurrentArduionoPort.ReadLine();// Считываем строку содержащую id карты из ардуинки
+            // Передаем вызываем и передаем ее делегату
+            cardReceivedHandler.Invoke(CardId);
+        }
+        //Метод для вызова закрытия SerialPort
+        public static void ClosePort()
+        {   
+            CurrentArduionoPort.Close();//Само закрытие 
         }
     }
 }

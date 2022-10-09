@@ -6,11 +6,18 @@
         xmlns:local="clr-namespace:ASMaIoP"
         mc:Ignorable="d"
         Title="ASMaIoP" Width="400" Height="200"  WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BitmapImage x:Key="MyImageSource" UriSource="UserControl\PhotoUsers/1.png" />
+    </Window.Resources>
     <Grid x:Name="MainGrid" Width="auto" Height="auto">
+        <Grid.Background>
+            <ImageBrush Viewbox="-1.9,-1.9,2.9,2.9" ImageSource="{StaticResource MyImageSource}"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="80*"></RowDefinition>
         </Grid.RowDefinitions>
+        
         <Menu x:Name="MainMenu" Grid.Row="0" Height="auto" VerticalAlignment="Top" IsEnabled="False">
             <MenuItem Header="Профиль">
                 <MenuItem Header="Свой профиль" Click="Menu_MyProfile_Click" ></MenuItem>

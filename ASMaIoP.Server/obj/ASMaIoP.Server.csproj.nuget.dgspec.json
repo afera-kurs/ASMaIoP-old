@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj": {}
+    "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
+    "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj",
+        "projectUniqueName": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj",
         "projectName": "ASMaIoP.General",
-        "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj",
-        "packagesPath": "C:\\Users\\minec\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\obj\\",
+        "projectPath": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj",
+        "packagesPath": "C:\\Users\\lerik\\.nuget\\packages\\",
+        "outputPath": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.General\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\minec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lerik\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,9 +25,7 @@
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files\\dotnet\\library-packs": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -70,20 +68,20 @@
         }
       }
     },
-    "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj": {
+    "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
+        "projectUniqueName": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
         "projectName": "ASMaIoP.Server",
-        "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
-        "packagesPath": "C:\\Users\\minec\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.Server\\obj\\",
+        "projectPath": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.Server\\ASMaIoP.Server.csproj",
+        "packagesPath": "C:\\Users\\lerik\\.nuget\\packages\\",
+        "outputPath": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\minec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lerik\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -91,16 +89,14 @@
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files\\dotnet\\library-packs": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
-                "projectPath": "C:\\Users\\minec\\source\\repos\\ASMaIoP_repos\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj"
+              "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj": {
+                "projectPath": "D:\\source\\repos\\git\\ASMaIoP\\ASMaIoP.General\\ASMaIoP.General.csproj"
               }
             }
           }

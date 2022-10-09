@@ -61,7 +61,7 @@ namespace ASMaIoP.UserControl.CustomElement {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ASMaIoP;component/usercontrol/customelement/calendar.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ASMaIoP;V1.0.0.0;component/usercontrol/customelement/calendar.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControl\CustomElement\Calendar.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

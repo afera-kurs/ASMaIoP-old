@@ -130,7 +130,7 @@ namespace ASMaIoP.General
             // Поток для прослушивания подключений
             Thread serverListenThread;
             // Сами подключения
-            protected List<T_connection> connections;
+            protected List<T_connection> connections = new List<T_connection>();
 
             public Server(short nPort)
             {
