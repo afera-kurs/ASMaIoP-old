@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="ASMaIoP" Width="400" Height="200"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <BitmapImage x:Key="MyImageSource" UriSource="UserControl\PhotoUsers/1.png" />
+        <BitmapImage x:Key="MyImageSource" UriSource="1.png"/>
     </Window.Resources>
     <Grid x:Name="MainGrid" Width="auto" Height="auto">
         <Grid.Background>
-            <ImageBrush Viewbox="-1.9,-1.9,2.9,2.9" ImageSource="{StaticResource MyImageSource}"/>
+            <ImageBrush Viewbox="-1.9,-1.9,2.9,2.9" ImageSource="{DynamicResource MyImageSource}"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>

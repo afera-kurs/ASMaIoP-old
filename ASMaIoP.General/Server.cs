@@ -90,7 +90,7 @@ namespace ASMaIoP.General
             public void Write(string sData)
             {
                 // конвертируем строку в байты
-                byte[] data = Encoding.Unicode.GetBytes(sData);
+                byte[] data = Encoding.UTF8.GetBytes(sData);
                 // получаем количество байт
                 int nSize = sData.Length;
                 // отправляем размер строки клиенту

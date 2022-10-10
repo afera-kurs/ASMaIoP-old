@@ -21,7 +21,6 @@ namespace ASMaIoP.UserControl
     public partial class WaitLogins : System.Windows.Controls.UserControl
     {
         MainWindow wnd;//Объявляем переменную которая хранит MainWindow
-
         public WaitLogins(MainWindow wnd)// Принимаем объект класса MainWindow
         {
             InitializeComponent();
@@ -42,19 +41,17 @@ namespace ASMaIoP.UserControl
         }
 
         private void CardRecived(string CardId)
-        {  
-            if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS) //Провереям смогли мы подключиться
+        {
+            CardId = CardId.Substring(0, CardId.Length - 1); //Убираем один символ для соотвествие данных
+
+            if(StaticApplication.Session.Auth(CardId)) //Отправляем card ID для авторизации
             {
-                return;
+                WindowEnabled(); 
             }
-
-            StaticApplication.Session.Write((int)General.Client.ProtocolId.Auth); //Отправляем серверу протокол авторизации
-            StaticApplication.Session.Write(CardId); //Отправляем в сервер ID приложенной карты
-
-            int Code = StaticApplication.Session.ReadInt(); //Считваем код от сервера 
-            if(Code == 1) WindowEnabled();
-            if (Code == 0) MessageBox.Show("Не получилось произвести авторизацию");
-            StaticApplication.Session.Close();
+            else
+            {
+                MessageBox.Show("Не удалось авторизоваться");
+            }
         }
     }
 }

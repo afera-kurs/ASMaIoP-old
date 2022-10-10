@@ -68,9 +68,16 @@ namespace ASMaIoP.General
                     // Обнуляем переменную храняшую состояния (найдено ли имя)
                     bIsNameFind = false;
 
-                    // Добавляем нашу переменную в хеш таблицу
-                    m_ConfigurationTable.Add(sVarName, sVarValue);
-                    // Пропускаем текущую итерацю
+                    if(m_ConfigurationTable.ContainsKey(sVarName))
+                    {
+                        m_ConfigurationTable[sVarName] = sVarValue;
+                    }
+                    else
+                    {
+                        // Добавляем нашу переменную в хеш таблицу
+                        m_ConfigurationTable.Add(sVarName, sVarValue);
+                        // Пропускаем текущую итерацю
+                    }
                     continue;
                 }
 

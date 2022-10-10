@@ -4,6 +4,7 @@ using System.Text;
 using ASMaIoP.General.Client;
 using ASMaIoP.General;
 using System.Windows;
+using System.Collections;
 
 namespace ASMaIoP.net
 {
@@ -54,6 +55,10 @@ namespace ASMaIoP.net
 
             return true;//доделать проверка на возможность открытие если программа будет экстренна закрыта!@?
         }
+
+        public static Config DataTable = new Config();
+
+
         //Метод для закрытия соедение с сервером
         public static void ApplicationExit()
         {

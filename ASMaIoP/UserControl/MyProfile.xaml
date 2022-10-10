@@ -17,25 +17,25 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="0" >
-            <ListBox x:Name="ListBoxInfo"  >
+            <ListBox x:Name="ListBoxInfo">
                 <TextBlock FontWeight="Bold" Text="Содрудик" />
-                <ListBoxItem Background="LightGray">ФИО :</ListBoxItem>
-                <ListBoxItem Background="LightGray">ID :</ListBoxItem>
-                <ListBoxItem Background="LightGray">Уровень доступа :</ListBoxItem>
+                <ListBoxItem Background="LightGray">Имя:</ListBoxItem>
+                <ListBoxItem Background="LightGray">Фамилия :</ListBoxItem>
+                <ListBoxItem Background="LightGray">Отчество :</ListBoxItem>
                 <ListBoxItem Background="LightGray">Должность:</ListBoxItem>
-                <ListBoxItem Background="LightGray">ФИО:</ListBoxItem>
-                <ListBoxItem Background="LightGray">ФИО:</ListBoxItem>
+                <ListBoxItem Background="LightGray">Уровень доступа:</ListBoxItem>
+                <ListBoxItem Background="LightGray">ID:</ListBoxItem>
             </ListBox>
         </StackPanel>
         <StackPanel Grid.Column="2">
-            <ListBox x:Name="ListBoxPersonData">
+            <ListBox x:Name="ListBoxPersonData" MaxWidth="220" HorizontalAlignment="Left" >
                 <TextBlock></TextBlock>
-                <ListBoxItem>a</ListBoxItem>
-                <ListBoxItem>a</ListBoxItem>
-                <ListBoxItem>a</ListBoxItem>
-                <ListBoxItem>a</ListBoxItem>
-                <ListBoxItem>a</ListBoxItem>
-                <ListBoxItem>a</ListBoxItem>
+                <ListBoxItem></ListBoxItem>
+                <ListBoxItem></ListBoxItem>
+                <ListBoxItem></ListBoxItem>
+                <ListBoxItem></ListBoxItem>
+                <ListBoxItem></ListBoxItem>
+                <ListBoxItem></ListBoxItem>
             </ListBox>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Margin="20">
