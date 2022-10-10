@@ -7,7 +7,9 @@ namespace ASMaIoP.General.Client
     public enum ProtocolId //Код проток
     { 
         Auth = 0, 
-        DataTransfer_MyProfile= 1
+        DataTransfer_MyProfile = 1,
+        DataTransfer_Inventory = 2,
+
     }
 
     public class Session : ASMaIoP.General.Client.Client

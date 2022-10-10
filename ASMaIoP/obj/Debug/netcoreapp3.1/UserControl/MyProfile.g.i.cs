@@ -85,7 +85,7 @@ namespace ASMaIoP.UserControl {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ASMaIoP;V1.0.0.0;component/usercontrol/myprofile.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ASMaIoP;component/usercontrol/myprofile.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControl\MyProfile.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

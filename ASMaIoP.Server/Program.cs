@@ -56,32 +56,50 @@ namespace ASMaIoP.Server
                         }
                         return false;
                     case ProtocolId.DataTransfer_MyProfile:
-                        int nSessionId = ReadInt();
-                        UserData data = lUsers[nSessionId];
-                        string EmployeeId = database.GetEmployeeId(data.sCardId);
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            string EmployeeId = database.GetEmployeeId(data.sCardId);
 
-                        database._connection.Open();
+                            database._connection.Open();
 
-                        MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title,role_lvl " +
-                            $"FROM employee JOIN people ON employee_ID=people_ID" +
-                            $"JOIN role on employee_role_ID=role_ID WHERE employee_id={EmployeeId}", database._connection);
+                            MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title,role_lvl " +
+                                $"FROM employee JOIN people ON employee_ID=people_ID" +
+                                $"JOIN role on employee_role_ID=role_ID WHERE employee_id={EmployeeId}", database._connection);
 
-                        MySqlDataReader reader = cmd.ExecuteReader();
-                        reader.Read();
+                            MySqlDataReader reader = cmd.ExecuteReader();
+                            reader.Read();
 
-                        string Name = reader[0].ToString();
-                        string Surname = reader[1].ToString();
-                        string Patronimyc = reader[2].ToString();
-                        string role = reader[3].ToString();
-                        string lvl = reader[4].ToString();
+                            string Name = reader[0].ToString();
+                            string Surname = reader[1].ToString();
+                            string Patronimyc = reader[2].ToString();
+                            string role = reader[3].ToString();
+                            string lvl = reader[4].ToString();
 
-                        reader.Close();
+                            reader.Close();
 
-                        string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};lvl={lvl};role={role};ID={EmployeeId};";
-                        database._connection.Close();
-                        Write(ProfileInfo);
-                        Console.WriteLine(ProfileInfo);
+                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};lvl={lvl};role={role};ID={EmployeeId};";
+                            database._connection.Close();
+                            Write(ProfileInfo);
+                            Console.WriteLine(ProfileInfo);
+                        }
+                        return false;
+                    case ProtocolId.DataTransfer_Inventory:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            string EmployeeId = database.GetEmployeeId(data.sCardId);
 
+                            database._connection.Open();
+
+                            //MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title,role_lvl " +
+                            //    $"FROM employee JOIN people ON employee_ID=people_ID" +
+                            //    $"JOIN role on employee_role_ID=role_ID WHERE employee_id={EmployeeId}", database._connection);
+                            MySqlDataReader reader = cmd.ExecuteReader();
+                            reader.Read();
+
+                            
+                        }
                         return false;
                     default:
                         return false;

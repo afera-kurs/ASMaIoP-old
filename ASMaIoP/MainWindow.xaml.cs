@@ -60,17 +60,17 @@ namespace ASMaIoP
         private void Menu_CreateList_Click(object sender, RoutedEventArgs e)
         {
             AlignmentTopLeft();
-            Content = new CreateTask();
+            ContentView.Content = new CreateTask();
         }
         private void Menu_InvetaryOpen_Click(object sender, RoutedEventArgs e)
         {
             AlignmentTopLeft();
-            Content = new Inventory();
+            ContentView.Content = new Inventory();
         }
         private void Menu_AddInvetary_CLick(object sender, RoutedEventArgs e)
         {
             AlignmentTopLeft();
-            Content = new AddItemsInventory();
+            ContentView.Content = new AddItemsInventory();
         }
     }
 }

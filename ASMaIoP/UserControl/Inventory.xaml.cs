@@ -21,12 +21,16 @@ namespace ASMaIoP.UserControl
         public Inventory()
         {
             InitializeComponent();
+            asd();
 
         }
-        public void CreateObject(int numberItems)
+        public void asd()
         {
+            TreeViewItem ads = new TreeViewItem();
+            ads.Header = "asdas";
+            ads.Items.Add("asdas");
+            YourItems.Items.Add(ads);
 
         }
-
     }
 }
