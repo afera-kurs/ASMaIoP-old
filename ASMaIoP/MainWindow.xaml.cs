@@ -34,12 +34,15 @@ namespace ASMaIoP
 
             if (!StaticApplication.ApplicationStart())// Вызываем метод для ожидания авторизации
             {
-
                 System.Windows.Application.Current.Shutdown();
+
             }
 
             InitializeComponent();
-            ContentView.Content = new WaitLogins(this); //Отправляем в форму WaitLogins ссылку на эту форму
+            if (WaitLogins.Instance == null)
+                WaitLogins.Instance = new WaitLogins(this);
+
+            ContentView.Content = WaitLogins.Instance; //Отправляем в форму WaitLogins ссылку на эту форму
         }
 
         private void Menu_MyProfile_Click(object sender, RoutedEventArgs e)

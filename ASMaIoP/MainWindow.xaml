@@ -1,4 +1,4 @@
-﻿<Window x:Class="ASMaIoP.MainWindow"
+﻿<Window x:Name="mainWnd" x:Class="ASMaIoP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,6 +10,10 @@
         <BitmapImage x:Key="MyImageSource" UriSource="1.png"/>
     </Window.Resources>
     <Grid x:Name="MainGrid" Width="auto" Height="auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush Viewbox="-1.9,-1.9,2.9,2.9" ImageSource="{DynamicResource MyImageSource}"/>
         </Grid.Background>
@@ -17,18 +21,16 @@
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="80*"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <Menu x:Name="MainMenu" Grid.Row="0" Height="auto" VerticalAlignment="Top" IsEnabled="False">
+        <Menu x:Name="MainMenu" Height="auto" VerticalAlignment="Center" IsEnabled="False" Grid.ColumnSpan="2">
             <MenuItem Header="Профиль">
                 <MenuItem Header="Свой профиль" Click="Menu_MyProfile_Click" ></MenuItem>
                 <Separator/>
-                <MenuItem Header="Создать профиль" Click="Menu_CreateProfile_Click"></MenuItem>
+                <MenuItem Header="Создать профиль" x:Name="CreateProfile" Click="Menu_CreateProfile_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Поручение" >
                 <MenuItem Header="Список поручений" Click="Menu_ListView_Click"></MenuItem>
-                <MenuItem Header="Создать поручение" Click="Menu_CreateList_Click"></MenuItem>
+                <MenuItem x:Name="CreateList" Header="Создать поручение" Click="Menu_CreateList_Click"></MenuItem>
                 <Separator/>
-                <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Инвентарь" >
                 <MenuItem Header="Всё оборудование" Click="Menu_InvetaryOpen_Click"></MenuItem>

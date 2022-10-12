@@ -41,6 +41,27 @@ namespace ASMaIoP.Server
             }
         }
 
+        public int GetRoleLevel(string EmployeeId)
+        {
+            try
+            {
+                _connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand($"SELECT role_lvl FROM role JOIN employee ON employee_role_ID=role_ID WHERE employee_ID = '{EmployeeId}'", _connection);
+
+                string sId = cmd.ExecuteScalar().ToString();
+                _connection.Close();
+
+                return Convert.ToInt32(sId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return -1;
+            }
+
+        }
+
         public string GetEmployeeId(string CardId)
         {
             try
@@ -59,18 +80,6 @@ namespace ASMaIoP.Server
                 Console.WriteLine(e.Message);
                 return "";
             }
-        }
-
-        public string GetEmployeeIDFromCardId(string CardId)
-        {
-            _connection.Open();
-
-            MySqlCommand cmd = new MySqlCommand($"SELECT cards_employee_ID FROM cards WHERE cards_ID={CardId}");
-            string sId = cmd.ExecuteScalar().ToString();
-
-            _connection.Close();
-
-            return sId;
         }
     }
 }

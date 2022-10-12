@@ -7,9 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TreeView x:Name="YourItems" Width="220">
-            <TreeViewItem>
-            </TreeViewItem>
+        <TreeView x:Name="YourItems">
         </TreeView>
     </Grid>
 </UserControl>

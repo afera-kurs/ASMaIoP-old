@@ -4,12 +4,17 @@ using System.Text;
 
 namespace ASMaIoP.General.Client
 {
-    public enum ProtocolId //Код проток
+    
+    public enum ProtocolId //Код проток0l
     { 
         Auth = 0, 
         DataTransfer_MyProfile = 1,
         DataTransfer_Inventory = 2,
-
+        DataTransfer_CreateProfile = 3,
+        DataSearchEmpl_CreateProfile =4,
+        DataWriteEmpl_CreateProfile = 5,
+        DataUpdateEmpl_CreateProfile = 6,
+        DataDeleteEmpl_CreateProfile = 7
     }
 
     public class Session : ASMaIoP.General.Client.Client
@@ -22,8 +27,10 @@ namespace ASMaIoP.General.Client
         public ErrorCode Open() => Connect(); // Открываем соедение с сервером
 
         int nSessionId = 0;
+        int nLvlId = 0;
 
         public int SessionId { get => nSessionId; }//Свойства для чтение
+        public int AccessLevel { get => nLvlId; }//Свойства для чтение
 
         public bool Auth(string CardId)
         {
@@ -39,6 +46,7 @@ namespace ASMaIoP.General.Client
             if (Code == 1)
             {
                 nSessionId = ReadInt();
+                nLvlId = ReadInt();
             }
 
             Close();

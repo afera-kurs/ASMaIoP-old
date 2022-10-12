@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Web;
 using MySql.Data.MySqlClient;
 using ASMaIoP.General;
+using System.Data;
+using System.Threading;
+using System.Runtime.Intrinsics.X86;
 
 namespace ASMaIoP.Server
 {
@@ -25,6 +28,9 @@ namespace ASMaIoP.Server
                     case ProtocolId.Auth:
                         {
                             string CardId = ReadString();
+                            Thread thread = null;
+
+                            Console.WriteLine($"[Debug]: card id recived:{CardId}");
 
                             if (database.IsCardIdExits(CardId))
                             {
@@ -42,12 +48,41 @@ namespace ASMaIoP.Server
 
                                 if (!IsFind)
                                 {
-                                    lUsers.Add(new UserData { sCardId = CardId });
-                                    somethingNumber = lUsers.Count - 1;
+                                    UserData usr = new UserData { sCardId = CardId };
+                                    Action act =
+                                        delegate
+                                        {
+                                            database._connection.Open();
+
+                                            MySqlCommand cmd = new MySqlCommand($"SELECT employee_ID, employee_role_ID, role_lvl FROM employee JOIN role ON employee_role_ID=role_ID JOIN cards ON cards_employee_ID=employee_ID WHERE cards_ID='{CardId}'", database._connection);
+                                            MySqlDataReader reader = cmd.ExecuteReader();
+
+                                            reader.Read();
+
+                                            usr.sEmployeeId = reader[0].ToString();
+                                            usr.sRoleId = reader[1].ToString();
+                                            usr.nRoleLevel = Convert.ToInt32(reader[2]);
+
+                                            reader.Close();
+
+                                            database._connection.Close();
+
+                                            lUsers.Add(usr);
+
+                                            somethingNumber = lUsers.Count - 1;
+                                        };
+
+                                    thread = new Thread(
+                                        () => act()
+                                    );
+                                    thread.Start();
                                 }
                                 
                                 Write(1);
                                 Write(somethingNumber);
+                                if(thread != null)
+                                thread.Join();
+                                Write(lUsers[somethingNumber].nRoleLevel);
                             }
                             else
                             {
@@ -59,13 +94,11 @@ namespace ASMaIoP.Server
                         {
                             int nSessionId = ReadInt();
                             UserData data = lUsers[nSessionId];
-                            string EmployeeId = database.GetEmployeeId(data.sCardId);
+                            string EmployeeId = data.sEmployeeId;
 
                             database._connection.Open();
 
-                            MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title,role_lvl " +
-                                $"FROM employee JOIN people ON employee_ID=people_ID" +
-                                $"JOIN role on employee_role_ID=role_ID WHERE employee_id={EmployeeId}", database._connection);
+                            MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title FROM employee JOIN people ON people_ID=employee_people_ID JOIN role ON role.role_ID=employee_role_ID WHERE employee_ID={EmployeeId}", database._connection);
 
                             MySqlDataReader reader = cmd.ExecuteReader();
                             reader.Read();
@@ -74,31 +107,137 @@ namespace ASMaIoP.Server
                             string Surname = reader[1].ToString();
                             string Patronimyc = reader[2].ToString();
                             string role = reader[3].ToString();
-                            string lvl = reader[4].ToString();
 
                             reader.Close();
 
-                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};lvl={lvl};role={role};ID={EmployeeId};";
+                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};role={role};ID={EmployeeId};";
                             database._connection.Close();
                             Write(ProfileInfo);
                             Console.WriteLine(ProfileInfo);
+                        }
+                        return false;
+                    case ProtocolId.DataTransfer_CreateProfile:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            MySqlCommand cmd = new MySqlCommand("SELECT employee_ID, people_name, people_surname FROM employee JOIN people ON employee_people_ID=people_ID", database._connection);
+
+                            DataTable table = new DataTable();
+                            MySqlDataAdapter adapter = new MySqlDataAdapter();
+                            adapter.SelectCommand = cmd;
+                            adapter.Fill(table);
+
+                            Write(table.Rows.Count);
+
+                            for (int i = 0; i < table.Rows.Count; i++)
+                            {
+                                Write($"{table.Rows[i].ItemArray[0]} - {table.Rows[i].ItemArray[1]} {table.Rows[i].ItemArray[2]}");
+                            }
+
                         }
                         return false;
                     case ProtocolId.DataTransfer_Inventory:
                         {
                             int nSessionId = ReadInt();
                             UserData data = lUsers[nSessionId];
-                            string EmployeeId = database.GetEmployeeId(data.sCardId);
 
                             database._connection.Open();
 
-                            //MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title,role_lvl " +
-                            //    $"FROM employee JOIN people ON employee_ID=people_ID" +
-                            //    $"JOIN role on employee_role_ID=role_ID WHERE employee_id={EmployeeId}", database._connection);
+                            MySqlCommand cmd = new MySqlCommand($"SELECT inventory_title, inventory_description " +
+                                $"FROM inventory JOIN employee ON employee.employee_ID=inventory.inventory_employee_ID " +
+                                $"WHERE employee.employee_ID={data.sEmployeeId}", database._connection);
+
+                            DataTable table = new DataTable();
+                            MySqlDataAdapter adapter = new MySqlDataAdapter();
+                            adapter.SelectCommand = cmd;
+                            adapter.Fill(table);
+
+                            Write(table.Rows.Count);
+
+                            for(int i = 0; i < table.Rows.Count; i++)
+                            {
+                                Write($"{table.Rows[i].ItemArray[0]};{table.Rows[i].ItemArray[1]}");
+                            }
+
+                            database._connection.Close();
+
+                        }
+                        return false;
+                    case ProtocolId.DataSearchEmpl_CreateProfile:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            string sTargetEmployeeID = ReadString();
+
+                            database._connection.Open();
+
+                            MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title FROM employee JOIN people ON people_ID=employee_people_ID JOIN role ON role.role_ID=employee_role_ID WHERE employee_ID={sTargetEmployeeID}", database._connection);
                             MySqlDataReader reader = cmd.ExecuteReader();
                             reader.Read();
 
+                            string Name = reader[0].ToString();
+                            string Surname = reader[1].ToString();
+                            string Patronimyc = reader[2].ToString();
+                            string role = reader[3].ToString();
+
+                            reader.Close();
+
+                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};role={role};";
+                            database._connection.Close();
+                            Write(ProfileInfo);
+
+                        }
+                        return false;
+                    case ProtocolId.DataUpdateEmpl_CreateProfile:
+
+                        break;
+                    case ProtocolId.DataWriteEmpl_CreateProfile:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            string[] sData = ReadString().Split(';');
+
+                            string Name = sData[0];
+                            string SurName = sData[1];
+                            string Patronymic = sData[2];
+                            string role_ID = sData[3];
+                            string cardID = sData[4];
+                            /*
+                             * INSERT INTO table_listnames (name, address, tele)
+                                VALUES ('Rupert', 'Somewhere', '022')
+                                WHERE NOT EXISTS (
+                                    SELECT name FROM table_listnames WHERE name='value'
+                                );
+                             */
+
+                            if(database.IsCardIdExits(cardID))
+                            {
+                                Write(0);
+                                return false;
+                            }
+
+                            database._connection.Open();
+
+                            MySqlCommand cmd = new MySqlCommand($"INSERT INTO people(people_name, people_surName, people_patronymic) VALUES ('{Name}', '{SurName}', '{Patronymic}'); INSERT INTO employee(employee_role_ID,employee_people_ID) VALUES({role_ID},LAST_INSERT_ID()); INSERT INTO cards(cards_ID, cards_employee_ID) VALUES ('{cardID}', LAST_INSERT_ID())", database._connection);
+                            int nCount = cmd.ExecuteNonQuery();
+                            //$"INSERT INTO people(people_name, people_surName, people_patronymic) VALUES ('{Name}', '{SurName}', '{Patronymic}'); INSERT INTO employee(employee_role_ID,employee_people_ID) VALUES({role_ID},LAST_INSERT_ID()); INSERT INTO cards(cards_ID, cards_employee_ID) VALUES ('{cardID}', LAST_INSERT_ID()) WHERE NOT EXIST (SELECT * FROM cards WHERE card_ID='{cardID}')"
+                            database._connection.Close();
                             
+                            Write(nCount > 0 ? 1:0);
+                        }
+                        return false;
+                    case ProtocolId.DataDeleteEmpl_CreateProfile:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
                         }
                         return false;
                     default:

@@ -17,33 +17,29 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="0">
-            <ListBox x:Name="ListBoxInfo"  >
-                <TextBlock Height="20" FontWeight="Bold" Text="Содрудик" />
-                <ListBoxItem Height="20" Background="LightGray">ФИО :</ListBoxItem>
-                <ListBoxItem Height="20" Background="LightGray">ID :</ListBoxItem>
-                <ListBoxItem Height="20" Background="LightGray">Уровень доступа :</ListBoxItem>
-                <ListBoxItem Height="20" Background="LightGray">Должность:</ListBoxItem>
-                <ListBoxItem Height="20" Background="LightGray">ФИО:</ListBoxItem>
-                <ListBoxItem Height="20" Background="LightGray">ФИО:</ListBoxItem>
+            <ListBox x:Name="ListBoxInfo" Height="170">
+                <TextBlock FontWeight="Bold" Text="Содрудик" />
+                <ListBoxItem Height="21" Background="LightGray">Имя:</ListBoxItem>
+                <ListBoxItem Height="21" Background="LightGray">Фамилия :</ListBoxItem>
+                <ListBoxItem Height="21" Background="LightGray">Отчество :</ListBoxItem>
+                <ListBoxItem Height="21" Background="LightGray">Должность:</ListBoxItem>
             </ListBox>
         </StackPanel>
         <StackPanel Grid.Column="2">
-            <ListBox x:Name="ListBoxPersonData" Height="148" Width="180" HorizontalAlignment="Left">
-                <TextBlock Height="20" FontWeight="Bold"><Run Text="Введите данные:"/></TextBlock>
-                <ListBoxItem Height="20" >
-                    <TextBox x:Name="NameTextBox" Width="160"/>
+            <ListBox x:Name="ListBoxPersonData" Height="170" Width="180" HorizontalAlignment="Left">
+                <TextBlock FontWeight="Bold"><Run Text="Введите данные:"/></TextBlock>
+                <ListBoxItem>
+                    <TextBox x:Name="tb1" Height="17" Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem Height="20">
-                    <TextBox x:Name="IDTextBox" Width="160"/>
+                <ListBoxItem>
+                    <TextBox x:Name="tb2" Height="17" Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem Height="20" >
-                    <TextBox x:Name="LvlTextBox" Width="160"/>
+                <ListBoxItem>
+                    <TextBox x:Name="tb3" Height="17" Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem Height="20" >
-                    <TextBox x:Name="PostTextBox" Width="160"/>
+                <ListBoxItem>
+                    <TextBox x:Name="tb4" Height="17"  Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem Height="20" Content="a"/>
-                <ListBoxItem Height="20" Content="a"/>
             </ListBox>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Margin="20">
@@ -53,13 +49,14 @@
             <Button x:Name="AddPhoto" Content="Добавить фото" Click="AddPhoto_Click"/>
             <Button x:Name="UpdatePhoto" Content="Изменить фото" Click="UpdatePhoto_Click"/>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
-            <Calendar x:Name="Table" FirstDayOfWeek="Monday">
-                <Calendar.BlackoutDates>
-                    <CalendarDateRange Start="01/01/2023" End="01/30/2023"></CalendarDateRange>
-                </Calendar.BlackoutDates>
-            </Calendar>
+        <StackPanel Grid.Column="2" Grid.Row="1">
+            <Button x:Name="ButtonSave" Grid.Column="2" Grid.Row="1"  Content="Сохранить" Click="ButtonSave_Click"/>
+            <Button x:Name="ButtonSearch" Grid.Column="2" Grid.Row="1"  Content="Найти" Click="ButtonSearch_Click"/>
+            <Button x:Name="ButtonDelete" Grid.Column="2" Grid.Row="1"  Content="Удалить" Click="ButtonDelete_Click"/>
+            <Button x:Name="ButtonStartReadCard" Content="Начать считывание карты" Click="ButtonStartReadCard_Click"/>
         </StackPanel>
-        <Button x:Name="ButtonSave" Grid.Column="2" Grid.Row="1" Content="Сохранить" Click="ButtonSave_Click"/>
+        <ComboBox x:Name="cmsearch" Grid.Column="1" Grid.Row="1">
+        </ComboBox>
+        <TextBlock x:Name="tx1" Grid.Column="0" Grid.Row="1"></TextBlock>
     </Grid>
 </UserControl>
