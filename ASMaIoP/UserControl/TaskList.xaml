@@ -7,6 +7,39 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" HorizontalAlignment="Center">Название</TextBlock>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center">Статус</TextBlock>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Center">Создатель</TextBlock>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Center">Уровень</TextBlock>
+        <TextBlock Grid.Column="4" HorizontalAlignment="Center">Описание</TextBlock>
+        <TextBlock Grid.Column="5" HorizontalAlignment="Center">Открыть</TextBlock>
+        <TextBlock Grid.Column="6" HorizontalAlignment="Center">Участники</TextBlock>
+        <ListBox Grid.Row="1" Grid.Column="0" x:Name="NameList" >
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="1" x:Name="StatusList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="2" x:Name="CreaterList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="3" x:Name="LevelList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="4" x:Name="DiscriptionList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="5" x:Name="OpenList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="6" x:Name="MemberList">
+        </ListBox>
     </Grid>
 </UserControl>

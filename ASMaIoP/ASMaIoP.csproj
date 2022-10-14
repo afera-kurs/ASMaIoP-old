@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UserControl\PhotoUsers\**" />
+    <EmbeddedResource Remove="UserControl\PhotoUsers\**" />
+    <None Remove="UserControl\PhotoUsers\**" />
+    <Page Remove="UserControl\PhotoUsers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="1.png" />
+    <None Remove="234.jpg" />
     <None Remove="UserControl\Resources\1.png" />
   </ItemGroup>
 
@@ -16,11 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserControl\PhotoUsers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="1.png" />
+    <Resource Include="234.jpg" />
     <Resource Include="UserControl\Resources\1.png" />
   </ItemGroup>
 

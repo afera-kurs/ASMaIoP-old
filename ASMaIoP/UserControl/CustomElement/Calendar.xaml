@@ -56,7 +56,49 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <ListBoxItem></ListBoxItem>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
+                    <ListBoxItem/>
                 </Grid>
             </ListBoxItem>
         </ListBox>

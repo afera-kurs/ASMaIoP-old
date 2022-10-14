@@ -31,7 +31,22 @@ namespace ASMaIoP.UserControl
 
         private void LoadThread()
         {
-            if(StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
+            Action ComboBoxClear = delegate
+            {
+                cmsearch.Items.Clear();
+                cm4.Items.Clear();
+                tb11.Content = "Имя: ";
+                tb22.Content = "Фамилия: ";
+                tb33.Content = "Отчество: ";
+                tb44.Content = "Должность: ";
+                tb1.Text = "";
+                tb2.Text = "";
+                tb3.Text = "";
+            };
+
+            this.Dispatcher.Invoke(ComboBoxClear);
+
+            if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
             {
                 return;
             }
@@ -53,11 +68,27 @@ namespace ASMaIoP.UserControl
                 this.Dispatcher.Invoke(ComboBoxAdd);
             }
 
+            nCount = StaticApplication.Session.ReadInt();
+
+            for (int i = 0; i < nCount; i++)
+            {
+                string NewElementText = StaticApplication.Session.ReadString();
+
+                Action ComboBoxAdd = delegate
+                {
+                    cm4.Items.Add(NewElementText);
+                };
+
+                this.Dispatcher.Invoke(ComboBoxAdd);
+            }
+
             StaticApplication.Session.Close();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
+            if (cm4.SelectedItem == null) return;
+            string sRoleID = cm4.SelectedItem.ToString().Split(' ')[0];
             if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
             {
                 return;
@@ -66,12 +97,37 @@ namespace ASMaIoP.UserControl
 
             StaticApplication.Session.Write((int)ProtocolId.DataWriteEmpl_CreateProfile);
             StaticApplication.Session.Write(StaticApplication.Session.SessionId);
-            StaticApplication.Session.Write($"{tb1.Text};{tb2.Text};{tb3.Text};{tb4.Text};{tx1.Text}");
+            StaticApplication.Session.Write($"{tb1.Text};{tb2.Text};{tb3.Text};{sRoleID};{tx1.Text}");
 
             int nCode = StaticApplication.Session.ReadInt();
             MessageBox.Show(nCode > 0 ? "успешно" : "хреново");
 
             StaticApplication.Session.Close();
+            Thread thrd = new Thread(LoadThread);
+            thrd.Start();
+        }
+        private void ButtonChangeSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (cm4.SelectedItem == null) return;
+            string sRoleID = cm4.SelectedItem.ToString().Split(' ')[0];
+            if (cmsearch.SelectedItem == null) return;
+            string sEmployeeID = cmsearch.SelectedItem.ToString().Split(' ')[0];
+
+            if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
+            {
+                return;
+            }
+
+            StaticApplication.Session.Write((int)ProtocolId.DataUpdateEmpl_CreateProfile);
+            StaticApplication.Session.Write(StaticApplication.Session.SessionId);
+            StaticApplication.Session.Write($"{sEmployeeID};{sRoleID};{tb1.Text};{tb2.Text};{tb3.Text}");
+
+            int nCode = StaticApplication.Session.ReadInt();
+            MessageBox.Show(nCode > 0 ? "успешно" : "хреново");
+
+            StaticApplication.Session.Close();
+            Thread thrd = new Thread(LoadThread);
+            thrd.Start();
         }
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -81,9 +137,9 @@ namespace ASMaIoP.UserControl
             {
                 return;
             }
-            StaticApplication.Session.Write((int)ProtocolId.DataTransfer_MyProfile);
+            StaticApplication.Session.Write((int)ProtocolId.DataSearchEmpl_CreateProfile);
             StaticApplication.Session.Write(StaticApplication.Session.SessionId);
-            StaticApplication.Session.Write("");
+            StaticApplication.Session.Write(sEmployeeID);
 
             string ProfileInfo = StaticApplication.Session.ReadString();
 
@@ -94,18 +150,29 @@ namespace ASMaIoP.UserControl
 
             Action act = delegate
             {
-                WriteChtoto(cfg["Name"], cfg["Surname"], cfg["Patronimyc"], cfg["role"]);
+                WriteNeChtoto(cfg["Name"], cfg["Surname"], cfg["Patronymic"], cfg["role"]);
             };
             Dispatcher.Invoke(act);
 
+            sTargetId = sEmployeeID;
+
         }
 
-        public void WriteChtoto(string name, string surname, string patronymic, string role)
+        string sTargetName;
+        string sTargetSurName;
+        string sTargetPatronymic;
+        string sTargetId;
+
+        public void WriteNeChtoto(string name, string surname, string patronymic, string role)
         {
-            ListBoxPersonData.Items[1] = name;
-            ListBoxPersonData.Items[2] = surname;
-            ListBoxPersonData.Items[3] = patronymic;
-            ListBoxPersonData.Items[4] = role;
+            sTargetName = name;
+            sTargetSurName = surname;
+            sTargetPatronymic = patronymic;
+
+            tb11.Content = "Имя: " + name;
+            tb22.Content = "Фамилия: " + surname;
+            tb33.Content = "Отчество: " + patronymic;
+            tb44.Content = "Должность: " + role;
         }
 
         bool IsReadCard = false;
@@ -140,18 +207,31 @@ namespace ASMaIoP.UserControl
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
+            string sEmployeeID = cmsearch.SelectedItem.ToString().Split(' ')[0];
 
+            if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
+            {
+                return;
+            }
+            StaticApplication.Session.Write((int)ProtocolId.DataDeleteEmpl_CreateProfile);
+            StaticApplication.Session.Write(StaticApplication.Session.SessionId);
+            StaticApplication.Session.Write(sEmployeeID);
+
+            int nCode = StaticApplication.Session.ReadInt();
+            MessageBox.Show(nCode > 0 ? "успешно" : "ай больно в ноге");
+
+            StaticApplication.Session.Close();
+
+            ASMaIoP.General.Config cfg = new ASMaIoP.General.Config();
+
+            Thread thrd = new Thread(LoadThread);
+            thrd.Start();
         }
         private void AddPhoto_Click(object sender, RoutedEventArgs e)
         {
 
         }
         private void UpdatePhoto_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void IDTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

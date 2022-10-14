@@ -5,7 +5,7 @@ using System.Text;
 namespace ASMaIoP.General.Client
 {
     
-    public enum ProtocolId //Код проток0l
+    public enum ProtocolId //Коды пркотол для общения с сервером
     { 
         Auth = 0, 
         DataTransfer_MyProfile = 1,
@@ -14,7 +14,16 @@ namespace ASMaIoP.General.Client
         DataSearchEmpl_CreateProfile =4,
         DataWriteEmpl_CreateProfile = 5,
         DataUpdateEmpl_CreateProfile = 6,
-        DataDeleteEmpl_CreateProfile = 7
+        DataDeleteEmpl_CreateProfile = 7,
+        DataTransfer_Tasks = 8,
+        DataDelete_Tasks = 9,
+        DataTake_Tasks = 10,
+        DataUpdateState_Tasks = 11,
+        DataWrite_AppItems = 12,
+        DataTransfer_AppItems = 13,
+        DataDelete_AppItems = 14,
+        DataUpdate_AppItems = 15,
+        DataLoadFromEmployeeID_AppItems = 16,        
     }
 
     public class Session : ASMaIoP.General.Client.Client
@@ -45,6 +54,7 @@ namespace ASMaIoP.General.Client
             int Code = ReadInt(); //Считваем код отправленный сервером для определение ID сесии
             if (Code == 1)
             {
+                // считываем с сервера 
                 nSessionId = ReadInt();
                 nLvlId = ReadInt();
             }
@@ -53,7 +63,5 @@ namespace ASMaIoP.General.Client
 
             return Code == 1;
         }
-
-
     }
 }

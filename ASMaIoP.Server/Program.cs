@@ -22,6 +22,10 @@ namespace ASMaIoP.Server
 
             public override bool Process() //Метод обработки протокола
             {
+                try
+                {
+
+
                 ProtocolId nProtoId = (ProtocolId)ReadInt(); //Получаем номер протокола от клиента 
                 switch(nProtoId) //Проверяем подходит ли нам этот протокол
                 {
@@ -106,11 +110,11 @@ namespace ASMaIoP.Server
                             string Name = reader[0].ToString();
                             string Surname = reader[1].ToString();
                             string Patronimyc = reader[2].ToString();
-                            string role = reader[3].ToString();
+                            string RoleTitle = reader[3].ToString();
 
                             reader.Close();
 
-                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};role={role};ID={EmployeeId};";
+                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};role={RoleTitle};";
                             database._connection.Close();
                             Write(ProfileInfo);
                             Console.WriteLine(ProfileInfo);
@@ -121,6 +125,8 @@ namespace ASMaIoP.Server
                             int nSessionId = ReadInt();
                             UserData data = lUsers[nSessionId];
                             if (data.nRoleLevel != 3) return false;
+
+                            database._connection.Open();
 
                             MySqlCommand cmd = new MySqlCommand("SELECT employee_ID, people_name, people_surname FROM employee JOIN people ON employee_people_ID=people_ID", database._connection);
 
@@ -136,6 +142,21 @@ namespace ASMaIoP.Server
                                 Write($"{table.Rows[i].ItemArray[0]} - {table.Rows[i].ItemArray[1]} {table.Rows[i].ItemArray[2]}");
                             }
 
+                            cmd = new MySqlCommand("SELECT role_ID, role_title FROM role", database._connection);
+
+                            table = new DataTable();
+                            adapter = new MySqlDataAdapter();
+                            adapter.SelectCommand = cmd;
+                            adapter.Fill(table);
+
+                            Write(table.Rows.Count);
+
+                            for (int i = 0; i < table.Rows.Count; i++)
+                            {
+                                Write($"{table.Rows[i].ItemArray[0]} - {table.Rows[i].ItemArray[1]}");
+                            }
+
+                            database._connection.Close();
                         }
                         return false;
                     case ProtocolId.DataTransfer_Inventory:
@@ -181,20 +202,42 @@ namespace ASMaIoP.Server
 
                             string Name = reader[0].ToString();
                             string Surname = reader[1].ToString();
-                            string Patronimyc = reader[2].ToString();
+                            string Patronymic = reader[2].ToString();
                             string role = reader[3].ToString();
 
                             reader.Close();
 
-                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};role={role};";
+                            string ProfileInfo = $"Name={Name};Surname={Surname};Patronymic={Patronymic};role={role};";
                             database._connection.Close();
                             Write(ProfileInfo);
 
                         }
                         return false;
                     case ProtocolId.DataUpdateEmpl_CreateProfile:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
 
-                        break;
+                            string[] _data = ReadString().Split(';');
+
+                            string sTargetEmployeeID = _data[0];
+                            string sTargetEmployeeRoleId = _data[1];
+                            string sTargetPeopleName= _data[2];
+                            string sTargetPeopleSurname = _data[3];
+                            string sTargetPeoplePatronymic = _data[4];
+
+                            database._connection.Open();
+                            MySqlCommand cmd = new MySqlCommand($"UPDATE employee INNER JOIN role ON employee_role_ID=role_ID INNER JOIN people ON employee_people_ID=people_ID SET people_name={sTargetPeopleName}, people_surname={sTargetPeopleSurname}, people_patronymic = {sTargetPeoplePatronymic}, employee_role_ID={sTargetEmployeeRoleId} WHERE employee_ID = {sTargetEmployeeID}", database._connection);
+
+                            int nCount = cmd.ExecuteNonQuery();
+                            Write(nCount > 0 ? 1 : 0);
+
+                            database._connection.Close();
+
+                        }
+
+                        return false;
                     case ProtocolId.DataWriteEmpl_CreateProfile:
                         {
                             int nSessionId = ReadInt();
@@ -208,13 +251,6 @@ namespace ASMaIoP.Server
                             string Patronymic = sData[2];
                             string role_ID = sData[3];
                             string cardID = sData[4];
-                            /*
-                             * INSERT INTO table_listnames (name, address, tele)
-                                VALUES ('Rupert', 'Somewhere', '022')
-                                WHERE NOT EXISTS (
-                                    SELECT name FROM table_listnames WHERE name='value'
-                                );
-                             */
 
                             if(database.IsCardIdExits(cardID))
                             {
@@ -226,7 +262,6 @@ namespace ASMaIoP.Server
 
                             MySqlCommand cmd = new MySqlCommand($"INSERT INTO people(people_name, people_surName, people_patronymic) VALUES ('{Name}', '{SurName}', '{Patronymic}'); INSERT INTO employee(employee_role_ID,employee_people_ID) VALUES({role_ID},LAST_INSERT_ID()); INSERT INTO cards(cards_ID, cards_employee_ID) VALUES ('{cardID}', LAST_INSERT_ID())", database._connection);
                             int nCount = cmd.ExecuteNonQuery();
-                            //$"INSERT INTO people(people_name, people_surName, people_patronymic) VALUES ('{Name}', '{SurName}', '{Patronymic}'); INSERT INTO employee(employee_role_ID,employee_people_ID) VALUES({role_ID},LAST_INSERT_ID()); INSERT INTO cards(cards_ID, cards_employee_ID) VALUES ('{cardID}', LAST_INSERT_ID()) WHERE NOT EXIST (SELECT * FROM cards WHERE card_ID='{cardID}')"
                             database._connection.Close();
                             
                             Write(nCount > 0 ? 1:0);
@@ -238,13 +273,164 @@ namespace ASMaIoP.Server
                             UserData data = lUsers[nSessionId];
                             if (data.nRoleLevel != 3) return false;
 
+                            string sTargetEmployeeID = ReadString();
+
+                            database._connection.Open();
+                            MySqlCommand cmd = new MySqlCommand($"DELETE employee, people, cards FROM cards JOIN employee ON employee_ID=cards_employee_ID JOIN people ON employee_people_ID=people_ID WHERE employee_ID ={sTargetEmployeeID}", database._connection);
+                            int nCount = cmd.ExecuteNonQuery();
+                            database._connection.Close();
+                            Write(nCount > 0 ? 1:0);
                         }
                         return false;
+                    case ProtocolId.DataWrite_AppItems:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            database._connection.Open();
+
+                            string[] _data = ReadString().Split(';');
+
+                            MySqlCommand cmd = new MySqlCommand($"INSERT INTO inventory(inventory_employee_ID, inventory_title, inventory_description) VALUES ({_data[0]},'{_data[1]}','{_data[2]}')", database._connection);
+                            int nCount = cmd.ExecuteNonQuery();
+                            database._connection.Close();
+                            Write(nCount > 0 ? 1 : 0);
+                        }
+                        return false;
+                    case ProtocolId.DataTransfer_AppItems:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            database._connection.Open();
+
+                            MySqlCommand cmd = new MySqlCommand("SELECT employee_ID, people_name, people_surname FROM employee JOIN people ON employee_people_ID=people_ID", database._connection);
+
+                            DataTable table = new DataTable();
+                            MySqlDataAdapter adapter = new MySqlDataAdapter();
+                            adapter.SelectCommand = cmd;
+                            adapter.Fill(table);
+
+                            Write(table.Rows.Count);
+
+                            for (int i = 0; i < table.Rows.Count; i++)
+                            {
+                                Write($"{table.Rows[i].ItemArray[0]} - {table.Rows[i].ItemArray[1]} {table.Rows[i].ItemArray[2]}");
+                            }
+
+                            database._connection.Close();
+                        }
+                        return false;
+                    case ProtocolId.DataLoadFromEmployeeID_AppItems:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            string sTaragetEmployeeID = ReadString();
+                            MySqlCommand cmd = new MySqlCommand($"SELECT inventory_ID, inventory_title, inventory_description FROM inventory JOIN employee ON employee_ID=inventory_employee_ID WHERE employee_ID={sTaragetEmployeeID}", database._connection);
+                            MySqlDataAdapter adapter = new MySqlDataAdapter();
+                            DataTable table = new DataTable();
+                            adapter.SelectCommand = cmd;
+                            adapter.Fill(table);
+
+                            Write(table.Rows.Count);
+
+                            for(int i = 0; i < table.Rows.Count; i++)
+                            {
+                                Write($"{table.Rows[i].ItemArray[0]};{table.Rows[i].ItemArray[1]};{table.Rows[i].ItemArray[2]}");
+                            }
+
+                            database._connection.Close();
+                        }
+                        return false;
+                    case ProtocolId.DataDelete_AppItems:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            string sTargetInventoryID = ReadString();
+
+                            database._connection.Open();
+                            MySqlCommand cmd = new MySqlCommand($"DELETE FROM inventory WHERE inventory_ID={sTargetInventoryID}", database._connection);
+                            int nCount = cmd.ExecuteNonQuery();
+                            database._connection.Close();
+                            Write(nCount > 0 ? 1 : 0);
+                        }
+                        return false;
+                    case ProtocolId.DataUpdate_AppItems:
+                        {
+                            int nSessionId = ReadInt();
+                            UserData data = lUsers[nSessionId];
+                            if (data.nRoleLevel != 3) return false;
+
+                            string[] _data = ReadString().Split(';');
+                            
+                            database._connection.Open();
+
+                            MySqlCommand cmd = new MySqlCommand($"UPDATE inventory SET inventory_title='{_data[1]}', inventory_description='{_data[2]}' WHERE inventory_ID={_data[0]}", database._connection);
+                            int nCount = cmd.ExecuteNonQuery();
+
+                            database._connection.Close();
+                            Write(nCount > 0 ? 1 : 0);
+                        }
+                        return false;
+                    case ProtocolId.DataTransfer_Tasks:
+                            {
+                                int nSessionId = ReadInt();
+                                UserData data = lUsers[nSessionId];
+                                if (data.nRoleLevel != 3) return false;
+
+                                database._connection.Open();
+
+                                MySqlCommand cmd = new MySqlCommand("SELECT people_name, people_surname, tasks_description, task_state_title, tasks_ID FROM tasks JOIN employee ON tasks_owner_employee_ID=employee_ID JOIN people ON employee_people_ID=people_ID JOIN tasks_state ON tasks_st_ID=task_state_ID", database._connection);
+                                DataTable dataTable = new DataTable();
+                                MySqlDataAdapter Krivo_adapter = new MySqlDataAdapter();
+                                Krivo_adapter.SelectCommand = cmd;
+                                Krivo_adapter.Fill(dataTable);
+
+                                Write(dataTable.Rows.Count);
+
+                                for(int i = 0; i < dataTable.Rows.Count; i++)
+                                {
+
+                                    MySqlCommand cmd2 = new MySqlCommand($"SELECT COUNT(*) FROM task_executant_group JOIN tasks ON tasks_ID=task_ID WHERE task_ID={dataTable.Rows[i].ItemArray[4]}", database._connection);
+
+                                    //SELECT people_name, people_surname FROM people JOIN employee ON people_ID=employee_people_ID JOIN task_executant_group ON executant_emloyee_ID=employee_ID JOIN tasks ON tasks_ID=task_ID WHERE tasks_ID=1
+                                    Write($"{dataTable.Rows[i].ItemArray[0]};{dataTable.Rows[i].ItemArray[1]};{dataTable.Rows[i].ItemArray[2]};{dataTable.Rows[i].ItemArray[3]};{cmd2.ExecuteScalar().ToString()};{dataTable.Rows[i].ItemArray[4]}");
+                                    //MySqlCommand cmd2 = new MySqlCommand($"SELECT people_name, people_surname FROM people JOIN employee ON people_ID=employee_people_ID JOIN task_executant_group ON executant_emloyee_ID=employee_ID JOIN tasks ON tasks_ID=task_ID WHERE tasks_ID={dataTable.Rows[i].ItemArray[4]}", database._connection);
+                                    //DataTable dataTable2 = new DataTable();
+                                    //MySqlDataAdapter Krivo_adapter2 = new MySqlDataAdapter();
+                                    //Krivo_adapter2.SelectCommand = cmd2;
+                                    //Krivo_adapter2.Fill(dataTable);
+
+                                    ///Write(dataTable2.Rows.Count);
+
+                                    //for (int j = 0; j < dataTable2.Rows.Count; j++)
+                                    //{
+                                    //    Write($"{dataTable2.Rows[j].ItemArray[0]};{dataTable2.Rows[j].ItemArray[1]}");
+                                    //}
+
+                                }
+
+                                database._connection.Close();
+                            }
+                            return false;
                     default:
                         return false;
                 }
+                }
+                catch(Exception e)
+                {
+                    if (database._connection.State == ConnectionState.Open) database._connection.Close();
 
-                return true;
+                    Console.WriteLine($"иди фикси ошибку:{e.Message}");
+                    return false;
+                }
+                return false;
             }
         }
 

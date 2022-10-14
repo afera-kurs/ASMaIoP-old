@@ -40,7 +40,7 @@ namespace ASMaIoP.UserControl
 
             Action act = delegate
             {
-                WriteChtoto(cfg["Name"], cfg["Surname"], cfg["Patronimyc"], cfg["role"], cfg["lvl"], cfg["ID"]);
+                WriteChtoto(cfg["Name"], cfg["Surname"], cfg["Patronimyc"], cfg["role"]);
             };
             Dispatcher.Invoke(act);
         }
@@ -51,14 +51,12 @@ namespace ASMaIoP.UserControl
             InitializeComponent();
         }
 
-        public void WriteChtoto(string name, string surname, string patronymic, string role, string lvl, string ID)
+        public void WriteChtoto(string name, string surname, string patronymic, string role)
         {
             ListBoxPersonData.Items[1] = name;
             ListBoxPersonData.Items[2] = surname;
             ListBoxPersonData.Items[3] = patronymic;
             ListBoxPersonData.Items[4] = role;
-            ListBoxPersonData.Items[5] = lvl;
-            ListBoxPersonData.Items[6] = ID;
         }
 
         private void UpdatePhoto_Click(object sender, RoutedEventArgs e)

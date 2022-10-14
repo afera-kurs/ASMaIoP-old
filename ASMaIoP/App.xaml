@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:ASMaIoP"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <BitmapImage x:Key="cat_2" UriSource="234.jpg"/>
     </Application.Resources>
 </Application>

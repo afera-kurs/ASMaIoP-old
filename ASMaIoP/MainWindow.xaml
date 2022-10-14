@@ -5,23 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ASMaIoP"
         mc:Ignorable="d"
-        Title="ASMaIoP" Width="400" Height="200"  WindowStartupLocation="CenterScreen">
+        Title="ASMaIoP" Width="666" Height="365"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <BitmapImage x:Key="MyImageSource" UriSource="1.png"/>
     </Window.Resources>
     <Grid x:Name="MainGrid" Width="auto" Height="auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="67*"/>
-            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush Viewbox="-1.9,-1.9,2.9,2.9" ImageSource="{DynamicResource MyImageSource}"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="93*"></RowDefinition>
+            <RowDefinition Height="71*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu x:Name="MainMenu" Height="auto" VerticalAlignment="Center" IsEnabled="False" Grid.ColumnSpan="2">
+        <Menu x:Name="MainMenu" Height="18" VerticalAlignment="Center" IsEnabled="False" Grid.ColumnSpan="2">
             <MenuItem Header="Профиль">
                 <MenuItem Header="Свой профиль" Click="Menu_MyProfile_Click" ></MenuItem>
                 <Separator/>
@@ -38,7 +39,7 @@
                 <Separator/>
             </MenuItem>
         </Menu>
-        <ContentControl x:Name="ContentView" Width="auto" Height="auto" Grid.Row="1" HorizontalAlignment="Left" 
+        <ContentControl x:Name="ContentView" Width="auto" Height="auto" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
                         VerticalAlignment="Top" />
     </Grid>
 </Window>

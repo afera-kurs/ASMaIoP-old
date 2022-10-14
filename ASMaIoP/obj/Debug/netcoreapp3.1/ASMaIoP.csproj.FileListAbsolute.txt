@@ -87,3 +87,4 @@ D:\source\repos\git\ASMaIoP\ASMaIoP\bin\Debug\netcoreapp3.1\runtimes\unix\lib\ne
 D:\source\repos\git\ASMaIoP\ASMaIoP\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 D:\source\repos\git\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\UserControl\ListView.g.cs
 D:\source\repos\git\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\UserControl\ListView.baml
+D:\source\repos\git\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\App.baml
