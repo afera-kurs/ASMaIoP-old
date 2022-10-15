@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\source\repos\git\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\
+C:\Users\e36205\Source\Repos\ASMaIoP\ASMaIoP\obj\Debug\netcoreapp3.1\
 ASMaIoP
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-D:\source\repos\git\ASMaIoP\ASMaIoP\App.xaml
+C:\Users\e36205\Source\Repos\ASMaIoP\ASMaIoP\App.xaml
 10-844619583
 
 131577198804
-1942053052990
+1932007630718
 MainWindow.xaml;UserControl\AddItemsInventory.xaml;UserControl\CreateProfile.xaml;UserControl\CreateTask.xaml;UserControl\CustomElement\Calendar.xaml;UserControl\Inventory.xaml;UserControl\ListView.xaml;UserControl\MyProfile.xaml;UserControl\TaskList.xaml;UserControl\WaitLogins.xaml;
 
-False
+True
 

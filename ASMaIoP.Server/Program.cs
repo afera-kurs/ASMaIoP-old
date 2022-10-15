@@ -24,14 +24,12 @@ namespace ASMaIoP.Server
             {
                 try
                 {
-
-
                 ProtocolId nProtoId = (ProtocolId)ReadInt(); //Получаем номер протокола от клиента 
                 switch(nProtoId) //Проверяем подходит ли нам этот протокол
                 {
                     case ProtocolId.Auth:
                         {
-                            string CardId = ReadString();
+                            string CardId = Crypto.sha256(ReadString());
                             Thread thread = null;
 
                             Console.WriteLine($"[Debug]: card id recived:{CardId}");
