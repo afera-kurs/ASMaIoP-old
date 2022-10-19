@@ -16,7 +16,11 @@
   <ItemGroup>
     <None Remove="1.png" />
     <None Remove="234.jpg" />
-    <None Remove="UserControl\Resources\1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,8 +29,6 @@
 
   <ItemGroup>
     <Resource Include="1.png" />
-    <Resource Include="234.jpg" />
-    <Resource Include="UserControl\Resources\1.png" />
   </ItemGroup>
 
 </Project>

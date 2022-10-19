@@ -13,51 +13,48 @@
             <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="1" Grid.Row="0">
-            <ListBox x:Name="ListBoxInfo" Height="170">
-                <TextBlock FontWeight="Bold" Text="Содрудик" />
-                <ListBoxItem x:Name="tb11" Height="21" Background="LightGray">Имя:</ListBoxItem>
-                <ListBoxItem x:Name="tb22" Height="21" Background="LightGray">Фамилия</ListBoxItem>
-                <ListBoxItem x:Name="tb33" Height="21" Background="LightGray">Отчетсво:</ListBoxItem>
-                <ListBoxItem x:Name="tb44" Height="21" Background="LightGray">Должность:</ListBoxItem>
-            </ListBox>
-        </StackPanel>
-        <StackPanel Grid.Column="2">
-            <ListBox x:Name="ListBoxPersonData" Height="170" Width="180" HorizontalAlignment="Left">
-                <TextBlock FontWeight="Bold"><Run Text="Введите данные:"/></TextBlock>
-                <ListBoxItem>
+        <ListBox VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" x:Name="ListBoxInfo" Height="170">
+            <TextBlock FontWeight="Bold" Text="Содрудик" />
+            <ListBoxItem x:Name="tb11" Height="21" Background="LightGray">Имя:</ListBoxItem>
+            <ListBoxItem x:Name="tb22" Height="21" Background="LightGray">Фамилия</ListBoxItem>
+            <ListBoxItem x:Name="tb33" Height="21" Background="LightGray">Отчетсво:</ListBoxItem>
+            <ListBoxItem x:Name="tb44" Height="21" Background="LightGray">Должность:</ListBoxItem>
+        </ListBox>
+        <ListBox x:Name="ListBoxPersonData" Grid.Column="2" Height="170" Width="113" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock FontWeight="Bold" Text="Введите данные:"></TextBlock>
+                <ListBoxItem HorizontalAlignment="Left">
                     <TextBox x:Name="tb1" Height="17" Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem HorizontalAlignment="Left">
                     <TextBox x:Name="tb2" Height="17" Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem HorizontalAlignment="Left">
                     <TextBox x:Name="tb3" Height="17" Width="100"/>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem HorizontalAlignment="Left">
                     <ComboBox x:Name="cm4" Width="100" Height="17"></ComboBox>
                 </ListBoxItem>
-            </ListBox>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Margin="20">
-            <StackPanel x:Name="ImagePanel" Width="120" Height="120">
-                <Image x:Name="ImageFirst" Width ="120"/>
-            </StackPanel>
-            <Button x:Name="AddPhoto" Content="Добавить фото" Click="AddPhoto_Click"/>
-            <Button x:Name="UpdatePhoto" Content="Изменить фото" Click="UpdatePhoto_Click"/>
-        </StackPanel>
-        <StackPanel Grid.Column="2" Grid.Row="1">
-            <Button x:Name="ButtonSave" Grid.Column="2" Grid.Row="1"  Content="Создать" Click="ButtonSave_Click"/>
-            <Button x:Name="ButtonChangeSave" Grid.Column="2" Grid.Row="1"  Content="Сохранить" Click="ButtonChangeSave_Click"/>
-            <Button x:Name="ButtonSearch" Grid.Column="2" Grid.Row="1"  Content="Найти" Click="ButtonSearch_Click"/>
-            <Button x:Name="ButtonDelete" Grid.Column="2" Grid.Row="1"  Content="Удалить" Click="ButtonDelete_Click"/>
-            <Button x:Name="ButtonStartReadCard" Content="Начать считывание карты" Click="ButtonStartReadCard_Click"/>
-        </StackPanel>
-        <ComboBox Height="50" VerticalAlignment="Top" x:Name="cmsearch" Grid.Column="1" Grid.Row="1">
+        </ListBox>
+        <ContentControl HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Margin="20" x:Name="PhotoEmployee" Width ="120" Height="121"/>
+        <Grid Grid.Column="2" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button x:Name="ButtonSave" Grid.Row="0"  Content="Создать" Click="ButtonSave_Click"/>
+            <Button x:Name="ButtonChangeSave" Grid.Row="1"  Content="Сохранить" Click="ButtonChangeSave_Click"/>
+            <Button x:Name="ButtonSearch" Grid.Row="2"  Content="Найти" Click="ButtonSearch_Click"/>
+            <Button x:Name="ButtonDelete" Grid.Row="3"  Content="Удалить" Click="ButtonDelete_Click"/>
+            <Button x:Name="ButtonStartReadCard" Grid.Row="4"  Content="Начать считывание карты" Click="ButtonStartReadCard_Click"/>
+        </Grid>
+        <ComboBox Height="50" VerticalAlignment="Top" x:Name="cmsearch" Grid.Column="0" Grid.Row="1">
         </ComboBox>
-        <TextBlock x:Name="tx1" Grid.Column="0" Grid.Row="1"></TextBlock>
+        <TextBlock x:Name="tx1" Grid.Column="0" VerticalAlignment="Center" Grid.Row="1"></TextBlock>
     </Grid>
 </UserControl>

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UserControl\PhotoUsers\**" />
+    <EmbeddedResource Remove="UserControl\PhotoUsers\**" />
+    <None Remove="UserControl\PhotoUsers\**" />
+    <Page Remove="UserControl\PhotoUsers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="1.png" />
+    <None Remove="234.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ASMaIoP.General\ASMaIoP.General.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="1.png" />
+  </ItemGroup>
+
+</Project>

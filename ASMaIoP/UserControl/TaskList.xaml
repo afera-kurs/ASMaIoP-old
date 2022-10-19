@@ -11,35 +11,56 @@
             <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
             <ColumnDefinition MinWidth="50" Width="1*"></ColumnDefinition>
             <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="50" Width="3*"></ColumnDefinition>
             <ColumnDefinition MinWidth="50" Width="1*"></ColumnDefinition>
-            <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
-            <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
-            <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="50" Width="6*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="15*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" FontSize="12" HorizontalAlignment="Center">Название</TextBlock>
+        <TextBlock Grid.Column="0" FontSize="12" HorizontalAlignment="Center">Описание</TextBlock>
         <TextBlock Grid.Column="1" FontSize="12" HorizontalAlignment="Center">Статус</TextBlock>
         <TextBlock Grid.Column="2" FontSize="12" HorizontalAlignment="Center">Создатель</TextBlock>
-        <TextBlock Grid.Column="3" FontSize="12" HorizontalAlignment="Center">Уровень</TextBlock>
-        <TextBlock Grid.Column="4" FontSize="12" HorizontalAlignment="Center">Описание</TextBlock>
-        <TextBlock Grid.Column="5" FontSize="12" HorizontalAlignment="Center">Открыть</TextBlock>
-        <TextBlock Grid.Column="6" FontSize="12" HorizontalAlignment="Center">Участники</TextBlock>
-        <ListBox Grid.Row="1" Grid.Column="0" x:Name="NameList" >
+        <TextBlock Grid.Column="3" FontSize="12" HorizontalAlignment="Center">Участники</TextBlock>
+        <TextBlock Grid.Column="4" FontSize="12" HorizontalAlignment="Center">Открыть</TextBlock>
+        <TextBlock Grid.Column="5" FontSize="12" HorizontalAlignment="Center">Информация о задании</TextBlock>
+        <ListBox Grid.Row="1" Grid.Column="0" x:Name="DescriptionList" >
         </ListBox>
         <ListBox Grid.Row="1" Grid.Column="1" x:Name="StatusList">
         </ListBox>
         <ListBox Grid.Row="1" Grid.Column="2" x:Name="CreaterList">
         </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="3" x:Name="LevelList">
+        <ListBox Grid.Row="1" Grid.Column="3" x:Name="MemberList">
         </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="4" x:Name="DiscriptionList">
+        <ListBox Grid.Row="1" Grid.Column="4" x:Name="OpenList">
         </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="5" x:Name="OpenList">
-        </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="6" x:Name="MemberList">
-        </ListBox>
+        <Grid Grid.Row="1" Grid.Column="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="15*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="tb1" IsEnabled="False" Grid.Row="0"></TextBox>
+            <TextBox x:Name="tb2" IsEnabled="False" Grid.Row="1"></TextBox>
+            <TextBox x:Name="tb3" IsEnabled="False" Grid.Row="2"></TextBox>
+            <TextBox x:Name="tb4" IsEnabled="False" Grid.Row="3"></TextBox>
+            <TextBox x:Name="tb5" IsEnabled="False" Grid.Row="4"></TextBox>
+            <Grid Grid.Row="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button x:Name="ButtonJoin" IsEnabled="False" Grid.Row="0" Click="ButtonJoin_Click">присоединиться</Button>
+                <Button x:Name="ButtonCreate" Visibility="Hidden" Grid.Row="1" Click="ButtonCreate_Click">Сохранить</Button>
+                <Button x:Name="ButtonDelete" Visibility="Hidden" Grid.Row="2" Click="ButtonDelete_Click">Удалить</Button>
+                <Button x:Name="ButtonUpdate" Visibility="Hidden" Grid.Row="3" Click="ButtonUpdate_Click">Обновить</Button>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

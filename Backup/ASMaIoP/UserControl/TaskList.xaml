@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="ASMaIoP.UserControl.TaskList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASMaIoP.UserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="50" Width="1*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="50" Width="3*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="50" Width="1*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="50" Width="6*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" FontSize="12" HorizontalAlignment="Center">Описание</TextBlock>
+        <TextBlock Grid.Column="1" FontSize="12" HorizontalAlignment="Center">Статус</TextBlock>
+        <TextBlock Grid.Column="2" FontSize="12" HorizontalAlignment="Center">Создатель</TextBlock>
+        <TextBlock Grid.Column="3" FontSize="12" HorizontalAlignment="Center">Участники</TextBlock>
+        <TextBlock Grid.Column="4" FontSize="12" HorizontalAlignment="Center">Открыть</TextBlock>
+        <TextBlock Grid.Column="5" FontSize="12" HorizontalAlignment="Center">Информация о задании</TextBlock>
+        <ListBox Grid.Row="1" Grid.Column="0" x:Name="DescriptionList" >
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="1" x:Name="StatusList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="2" x:Name="CreaterList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="3" x:Name="MemberList">
+        </ListBox>
+        <ListBox Grid.Row="1" Grid.Column="4" x:Name="OpenList">
+        </ListBox>
+        <Grid Grid.Row="1" Grid.Column="5">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="tb1" Grid.Row="0"></TextBlock>
+            <TextBlock x:Name="tb2" Grid.Row="1"></TextBlock>
+            <TextBlock x:Name="tb3" Grid.Row="2"></TextBlock>
+            <TextBlock x:Name="tb4" Grid.Row="3"></TextBlock>
+            <TextBlock x:Name="tb5" Grid.Row="4"></TextBlock>
+            <TextBlock x:Name="tb6" Grid.Row="5"></TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

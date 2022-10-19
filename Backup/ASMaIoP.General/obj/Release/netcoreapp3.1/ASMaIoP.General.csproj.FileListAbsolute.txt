@@ -1,0 +1,10 @@
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\bin\Release\netcoreapp3.1\ASMaIoP.General.deps.json
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\bin\Release\netcoreapp3.1\ASMaIoP.General.dll
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\bin\Release\netcoreapp3.1\ASMaIoP.General.pdb
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.csproj.AssemblyReference.cache
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.GeneratedMSBuildEditorConfig.editorconfig
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.AssemblyInfoInputs.cache
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.AssemblyInfo.cs
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.csproj.CoreCompileInputs.cache
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.dll
+D:\source\repos\git\ASMaIoP\ASMaIoP.General\obj\Release\netcoreapp3.1\ASMaIoP.General.pdb

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Drawing;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -13,14 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ASMaIoP.UserControl;
+using ASMaIoP.General.Client;
 using ASMaIoP.net;
+using System.IO;
+using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
 
 namespace ASMaIoP
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         
         public void AlignmentTopLeft()
@@ -31,7 +36,7 @@ namespace ASMaIoP
 
         public MainWindow()
         {
-
+            Directory.CreateDirectory("res");
             if (!StaticApplication.ApplicationStart())// Вызываем метод для ожидания авторизации
             {
                 System.Windows.Application.Current.Shutdown();
@@ -60,11 +65,6 @@ namespace ASMaIoP
             AlignmentTopLeft();
             ContentView.Content = new TaskList();
         }
-        private void Menu_CreateList_Click(object sender, RoutedEventArgs e)
-        {
-            AlignmentTopLeft();
-            ContentView.Content = new CreateTask();
-        }
         private void Menu_InvetaryOpen_Click(object sender, RoutedEventArgs e)
         {
             AlignmentTopLeft();
@@ -77,4 +77,3 @@ namespace ASMaIoP
         }
     }
 }
-
