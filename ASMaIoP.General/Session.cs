@@ -29,7 +29,8 @@ namespace ASMaIoP.General.Client
         DataGetImage = 18,
         GetTaskInfo = 19,
         TaskExecutantJoin = 20,
-        DataWrite_Tasks = 21,    
+        DataWrite_Tasks = 21,  
+        TaskDeleteMembers =22,
     }
 
     public class Session : ASMaIoP.General.Client.Client

@@ -106,6 +106,13 @@ namespace ASMaIoP.UserControl
             //input.Owner = wnd;
         }
 
+        public void CloseAdminInput()
+        {
+            if (input != null)
+                input.Close();
+        }
+
+
         public void WindowEnabled() //Метод активируйщий menu после авторизации
         {
             //Присваем переменной safeWrite анониманый метод  
@@ -132,7 +139,8 @@ namespace ASMaIoP.UserControl
                     };
                     wnd.Dispatcher.Invoke(act);
                 }
-                WindowEnabled(); 
+                WindowEnabled();
+                CloseAdminInput();
             }
             else
             {

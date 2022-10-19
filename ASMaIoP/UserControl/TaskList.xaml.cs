@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections;
 using ASMaIoP.net;
 using System.Threading.Tasks;
 
@@ -30,6 +31,9 @@ namespace ASMaIoP.UserControl
             thrd.Start();
         }
 
+        Hashtable hStates = new Hashtable();
+
+
         public void LoadThreadTasks()
         {
             if(StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
@@ -40,24 +44,36 @@ namespace ASMaIoP.UserControl
             StaticApplication.Session.Write((int)ASMaIoP.General.Client.ProtocolId.DataTransfer_Tasks);
             StaticApplication.Session.Write(StaticApplication.Session.SessionId);
 
-
-            int nCount = StaticApplication.Session.ReadInt();
             Action act = delegate
             {
                 if (StaticApplication.Session.AccessLevel == 3 || StaticApplication.Session.AccessLevel == 999)
                 {
-                    tb1.IsEnabled = true; 
-                    tb2.IsEnabled = true; 
-                    tb3.IsEnabled = true; 
-                    tb4.IsEnabled = true; 
+                    tbCreater.IsEnabled = true; 
+                    tbDescrption.IsEnabled = true; 
+                    tbStatus.Visibility = Visibility.Collapsed;
+                    cmbStatus.Visibility = Visibility.Visible;
+                    tbMembers.Visibility = Visibility.Collapsed;
+                    cmbMember.Visibility = Visibility.Visible;
                     tb5.IsEnabled = true;
+                    ButtonDeleteMember.Visibility = Visibility.Visible;
 
                     ButtonCreate.Visibility = Visibility.Visible;
                     ButtonDelete.Visibility = Visibility.Visible;
                     ButtonUpdate.Visibility = Visibility.Visible;
-
-
                 }
+
+                string RowStatePacket = StaticApplication.Session.ReadString();
+                string[] RowStates = RowStatePacket.Split(';');
+                foreach (string state in RowStates)
+                {
+                    string[] data = state.Split('.');
+                    int Id = int.Parse(data[0]);
+                    string StateTitle = data[1];
+                    hStates.Add(Id, StateTitle);
+                    cmbStatus.Items.Add(new KeyValuePair<int, string>(Id, StateTitle));
+                }
+
+                int nCount = StaticApplication.Session.ReadInt();
                 for (int i = 0; i < nCount; i++)
                 {
                     string RowPacket = StaticApplication.Session.ReadString();
@@ -95,14 +111,18 @@ namespace ASMaIoP.UserControl
 
             string[] Task = StaticApplication.Session.ReadString().Split(';');
 
-            tb1.Text = $"{Task[0]} {Task[1]}";
-            tb2.Text = $"{Task[2]}";
-            tb3.Text = Task[3];
+            tbCreater.Text = $"{Task[0]} {Task[1]}";
+            tbDescrption.Text = $"{Task[2]}";
+            cmbStatus.Items.Clear();
+            //cmbStatus.Items.Add(Task[3]);
+            tbStatus.Text = Task[3];
 
             for(int i = 4; i < Task.Length; i++)
             {
-                tb4.Text = "";
-                tb4.Text += $"{Task[i]}\n";
+                string executant = Task[i];
+                cmbMember.Items.Clear();
+                i++;
+                cmbMember.Items.Add(new KeyValuePair<int, string>(int.Parse(Task[i]), executant));
             }
             StaticApplication.Session.Close();
         }
@@ -128,11 +148,22 @@ namespace ASMaIoP.UserControl
         {
             if (nSelected != null) return;
 
-            StaticApplication.Session.Write((int)General.Client.ProtocolId.DataSave_Tasks);
-            StaticApplication.Session.Write(StaticApplication.Session.SessionId);
+            if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
+            {
+                return;
+            }
 
+            StaticApplication.Session.Write((int)General.Client.ProtocolId.DataWrite_Tasks);
+            StaticApplication.Session.Write(StaticApplication.Session.SessionId);
+            
+            if(tbDescrption.Text == null)
+                return;
+
+            StaticApplication.Session.Write($"{tbDescrption.Text}");
 
             CheckStatus(StaticApplication.Session.ReadInt());
+
+            StaticApplication.Session.Close();
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
@@ -176,13 +207,33 @@ namespace ASMaIoP.UserControl
                 return;
             }
 
-            StaticApplication.Session.Write((int)General.Client.ProtocolId.DataDelete_Tasks);
+            StaticApplication.Session.Write((int)General.Client.ProtocolId.DataSave_Tasks);
             StaticApplication.Session.Write(StaticApplication.Session.SessionId);
 
             StaticApplication.Session.Write($"{nSelected.ToString()};");
 
             CheckStatus(StaticApplication.Session.ReadInt());
 
+        }
+
+        private void ButtonDeleteMember_Click(object sender, RoutedEventArgs e)
+        {
+            if (nSelected == null) return;
+
+            if (StaticApplication.Session.Open() != General.ErrorCode.SUCCESS)
+            {
+                return;
+            }
+
+            StaticApplication.Session.Write((int)General.Client.ProtocolId.TaskDeleteMembers);
+            StaticApplication.Session.Write(StaticApplication.Session.SessionId);
+
+            StaticApplication.Session.Write($"{cmbMember.Text.ToString()}");
+
+            CheckStatus(StaticApplication.Session.ReadInt());
+
+            StaticApplication.Session.Close();
+            nSelected = null;
         }
     }
 }

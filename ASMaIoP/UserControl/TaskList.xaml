@@ -44,11 +44,13 @@
                 <RowDefinition Height="10*"></RowDefinition>
                 <RowDefinition Height="15*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBox x:Name="tb1" IsEnabled="False" Grid.Row="0"></TextBox>
-            <TextBox x:Name="tb2" IsEnabled="False" Grid.Row="1"></TextBox>
-            <TextBox x:Name="tb3" IsEnabled="False" Grid.Row="2"></TextBox>
-            <TextBox x:Name="tb4" IsEnabled="False" Grid.Row="3"></TextBox>
+            <TextBox x:Name="tbCreater" IsEnabled="False" Grid.Row="0"></TextBox>
+            <TextBox x:Name="tbDescrption" IsEnabled="False" Grid.Row="1"></TextBox>
+            <TextBox x:Name="tbStatus" IsEnabled="False" Grid.Row="2"></TextBox>
+            <TextBox x:Name="tbMembers" IsEnabled="False" Grid.Row="3"></TextBox>
             <TextBox x:Name="tb5" IsEnabled="False" Grid.Row="4"></TextBox>
+            <ComboBox x:Name="cmbStatus" Visibility="Collapsed" Grid.Row="2"></ComboBox>
+            <ComboBox x:Name="cmbMember" Visibility="Collapsed" Grid.Row="3"></ComboBox>
             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -56,10 +58,15 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button x:Name="ButtonJoin" IsEnabled="False" Grid.Row="0" Click="ButtonJoin_Click">присоединиться</Button>
-                <Button x:Name="ButtonCreate" Visibility="Hidden" Grid.Row="1" Click="ButtonCreate_Click">Сохранить</Button>
-                <Button x:Name="ButtonDelete" Visibility="Hidden" Grid.Row="2" Click="ButtonDelete_Click">Удалить</Button>
-                <Button x:Name="ButtonUpdate" Visibility="Hidden" Grid.Row="3" Click="ButtonUpdate_Click">Обновить</Button>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ButtonJoin" IsEnabled="False" Grid.Row="0" Grid.ColumnSpan="2" Click="ButtonJoin_Click">присоединиться</Button>
+                <Button x:Name="ButtonCreate" Visibility="Hidden" Grid.Row="1" Grid.ColumnSpan="2" Click="ButtonCreate_Click">Сохранить</Button>
+                <Button x:Name="ButtonDelete" Visibility="Hidden" Grid.Row="2" Grid.Column="0" Click="ButtonDelete_Click">Удалить</Button>
+                <Button x:Name="ButtonDeleteMember" Visibility="Hidden" Grid.Row="2" Grid.Column="1" Click="ButtonDeleteMember_Click">Удалить участника</Button>
+                <Button x:Name="ButtonUpdate" Visibility="Hidden" Grid.Row="3" Grid.ColumnSpan="2" Click="ButtonUpdate_Click">Обновить</Button>
             </Grid>
         </Grid>
     </Grid>

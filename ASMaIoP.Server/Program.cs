@@ -26,6 +26,7 @@ namespace ASMaIoP.Server
 
 			public override bool Process() //Метод обработки протокола
 			{
+                DatabaseInterface newInterface = new DatabaseInterface(ConnectionString);
 				try
 				{
 				ProtocolId nProtoId = (ProtocolId)ReadInt(); //Получаем номер протокола от клиента 
@@ -98,13 +99,13 @@ namespace ASMaIoP.Server
 						return false;
 					case ProtocolId.DataTransfer_MyProfile:
 						{
-								DatabaseInterface newInterface = new DatabaseInterface(ConnectionString);
+							newInterface = new DatabaseInterface(ConnectionString);
 
                             int nSessionId = ReadInt();
 							UserData data = lUsers[nSessionId];
 							string EmployeeId = data.sEmployeeId;
 
-                                newInterface._connection.Open();
+                            newInterface._connection.Open();
 
 							MySqlCommand cmd = new MySqlCommand($"SELECT people_name,people_surname,people_patronymic,role_title, image_path FROM employee JOIN people ON people_ID=employee_people_ID JOIN role ON role.role_ID=employee_role_ID JOIN image ON employee_image_ID=image_ID WHERE employee_ID={EmployeeId}", newInterface._connection);
 
@@ -120,7 +121,7 @@ namespace ASMaIoP.Server
 							reader.Close();
 
 							string ProfileInfo = $"Name={Name};Surname={Surname};Patronimyc={Patronimyc};role={RoleTitle};";
-                                newInterface._connection.Close();
+                            newInterface._connection.Close();
 							Write(ProfileInfo);
 							if(File.Exists(ImagePath))
 							{
@@ -135,8 +136,8 @@ namespace ASMaIoP.Server
 						return false;
 					case ProtocolId.DataTransfer_UpdateImage_CreateProfile:
 						{
-                                DatabaseInterface newInterface = new DatabaseInterface(ConnectionString);
-                                int nSessionId = ReadInt();
+                            newInterface = new DatabaseInterface(ConnectionString);
+                            int nSessionId = ReadInt();
 							UserData data = lUsers[nSessionId];
 							byte[] img = ReadBytes();
 
@@ -434,7 +435,26 @@ namespace ASMaIoP.Server
 
 							database._connection.Open();
 
-							MySqlCommand cmd = new MySqlCommand("SELECT people_name, people_surname, tasks_description, task_state_title, tasks.tasks_ID FROM tasks JOIN employee ON tasks_owner_employee_ID=employee_ID JOIN people ON employee_people_ID=people_ID JOIN tasks_state ON tasks_st_ID=task_state_ID", database._connection);
+							string sStatesPacket = "";
+
+                            MySqlCommand cmd = new MySqlCommand("SELECT * FROM tasks_state", database._connection);
+                            MySqlDataReader reader = cmd.ExecuteReader();
+
+							if (reader.Read())
+							{
+								sStatesPacket = $"{reader[0]}.{reader[1]}";
+
+                                    while (reader.Read())
+                                    {
+                                        sStatesPacket += $";{reader[0]}.{reader[1]}";
+                                    }
+                            }
+
+							reader.Close();
+
+                            Write(sStatesPacket);
+
+                            cmd = new MySqlCommand("SELECT people_name, people_surname, tasks_description, task_state_title, tasks.tasks_ID, task_state_ID FROM tasks JOIN employee ON tasks_owner_employee_ID=employee_ID JOIN people ON employee_people_ID=people_ID JOIN tasks_state ON tasks_st_ID=task_state_ID", database._connection);
 							DataTable dataTable = new DataTable();
 							MySqlDataAdapter Krivo_adapter = new MySqlDataAdapter();
 							Krivo_adapter.SelectCommand = cmd;
@@ -447,7 +467,7 @@ namespace ASMaIoP.Server
 
 								MySqlCommand cmd2 = new MySqlCommand($"SELECT COUNT(*) FROM task_executant_group JOIN tasks ON tasks.tasks_ID=task_executant_group.tasks_ID WHERE tasks.tasks_ID={dataTable.Rows[i].ItemArray[4]}", database._connection);
 
-								string Row = $"{dataTable.Rows[i].ItemArray[0]};{dataTable.Rows[i].ItemArray[1]};{dataTable.Rows[i].ItemArray[2]};{dataTable.Rows[i].ItemArray[3]};{cmd2.ExecuteScalar().ToString()};{dataTable.Rows[i].ItemArray[4]}";
+								string Row = $"{dataTable.Rows[i].ItemArray[0]};{dataTable.Rows[i].ItemArray[1]};{dataTable.Rows[i].ItemArray[2]};{dataTable.Rows[i].ItemArray[3]};{cmd2.ExecuteScalar().ToString()};{dataTable.Rows[i].ItemArray[4]};{dataTable.Rows[i].ItemArray[5]}";
 
 								Console.WriteLine(Row);
 
@@ -485,50 +505,49 @@ namespace ASMaIoP.Server
 						return false;
 					case ProtocolId.GetTaskInfo:
 						{
-							int nSessionId = ReadInt();
-							UserData data = lUsers[nSessionId];
+                                int nSessionId = ReadInt();
+                                UserData data = lUsers[nSessionId];
 
-							string sTaskId = ReadString();
+                                string sTaskId = ReadString();
 
-							database._connection.Open();
+                                database._connection.Open();
 
-							MySqlCommand cmd = new MySqlCommand($"SELECT people_name, people_surname, tasks_description, task_state_title FROM tasks JOIN employee ON tasks_owner_employee_ID=employee_ID JOIN people ON employee_people_ID=people_ID JOIN tasks_state ON tasks_st_ID=task_state_ID WHERE tasks.tasks_ID={sTaskId}", database._connection);
-							MySqlDataReader reader = cmd.ExecuteReader();
-							if(reader.Read())
-							{
-								reader[0].ToString();
-							}
+                                MySqlCommand cmd = new MySqlCommand($"SELECT people_name, people_surname, tasks_description, task_state_title FROM tasks JOIN employee ON tasks_owner_employee_ID=employee_ID JOIN people ON employee_people_ID=people_ID JOIN tasks_state ON tasks_st_ID=task_state_ID WHERE tasks.tasks_ID={sTaskId}", database._connection);
+                                MySqlDataReader reader = cmd.ExecuteReader();
+                                if (reader.Read())
+                                {
+                                    reader[0].ToString();
+                                }
 
-							string CreatorName = reader[0].ToString();
-							string CreatorSurname = reader[1].ToString();
-							string TaskDescription = reader[2].ToString();
-							string TaskStateTitle = reader[3].ToString();
+                                string CreatorName = reader[0].ToString();
+                                string CreatorSurname = reader[1].ToString();
+                                string TaskDescription = reader[2].ToString();
+                                string TaskStateTitle = reader[3].ToString();
 
-							reader.Close();
+                                reader.Close();
 
-							string sPacket = $"{CreatorName};{CreatorSurname};{TaskDescription};{TaskStateTitle}";
-							MySqlCommand cmd3 = new MySqlCommand($"SELECT people_name, people_surname FROM people JOIN employee ON people_ID = employee_people_ID JOIN task_executant_group ON task_executant_group.executant_employee_ID = employee_ID JOIN tasks ON tasks.tasks_ID = task_executant_group.tasks_ID WHERE tasks.tasks_ID={sTaskId}", database._connection);
-							reader = cmd3.ExecuteReader();
+                                string sPacket = $"{CreatorName};{CreatorSurname};{TaskDescription};{TaskStateTitle}";
+                                MySqlCommand cmd3 = new MySqlCommand($"SELECT people_name, people_surname, executant_employee_ID FROM people JOIN employee ON people_ID = employee_people_ID JOIN task_executant_group ON task_executant_group.executant_employee_ID = employee_ID JOIN tasks ON tasks.tasks_ID = task_executant_group.tasks_ID WHERE tasks.tasks_ID={sTaskId}", database._connection);
+                                reader = cmd3.ExecuteReader();
 
-							while(reader.Read())
-							{
-								sPacket += $";{reader[0].ToString()} {reader[1].ToString()}";
-							}
+                                while (reader.Read())
+                                {
+                                    sPacket += $";{reader[0].ToString()} {reader[1].ToString()};{reader[2].ToString()}";
+                                }
 
-							reader.Close();
-							Write(sPacket);
+                                reader.Close();
+                                Write(sPacket);
 
-							database._connection.Close();
-						}
+                                database._connection.Close();
+                            }
 						return false;
 					case ProtocolId.DataDelete_Tasks:
 						{
 							int nSessionId = ReadInt();
 							UserData data = lUsers[nSessionId];
 							if (data.nRoleLevel != 3 && data.nRoleLevel != 999) return false;
-
 							string sTaskId = ReadString();
-
+							
 							database._connection.Open();
 								/*
 								 DELETE employee, people, cards FROM cards
@@ -537,9 +556,9 @@ namespace ASMaIoP.Server
 								 */
 
 							MySqlCommand cmd = new MySqlCommand($"DELETE task_executant_group FROM task_executant_group WHERE tasks_ID={sTaskId};DELETE tasks FROM tasks WHERE tasks_ID={sTaskId}");
-							Write(cmd.ExecuteNonQuery() > 0 ? 1 : 0);
-								// крч интегрируем
-							database._connection.Close();
+                                Write(cmd.ExecuteNonQuery() > 0 ? 1 : 0);
+
+                                database._connection.Close();
 						}
 						return false;
 					case ProtocolId.TaskExecutantJoin:
@@ -550,7 +569,7 @@ namespace ASMaIoP.Server
 
 							string sTaskID = ReadString();
 
-							MySqlCommand cmd = new MySqlCommand($"INSERT INTO task_executant_group(executant_employee_ID, tasks_ID) VALUES({data.sEmployeeId},{sTaskID})");
+							MySqlCommand cmd = new MySqlCommand($"INSERT INTO task_executant_group(executant_employee_ID, tasks_ID) VALUES({data.sEmployeeId},{sTaskID})", database._connection);
 
 							database._connection.Close();
 						}
@@ -560,15 +579,48 @@ namespace ASMaIoP.Server
 							int nSessionId = ReadInt();
 							UserData data = lUsers[nSessionId];
 							if (data.nRoleLevel != 3 && data.nRoleLevel != 999) return false;
+
                             database._connection.Open();
 
-                            string[] Data = ReadString().Split(';');
+                                string[] Data = ReadString().Split(';');
 
 							MySqlCommand cmd = new MySqlCommand($"UPDATE tasks SET tasks_description='{Data[1]}', tasks_st_ID={Data[2]} WHERE tasks_ID={Data[0]}",database._connection);
                             Write(cmd.ExecuteNonQuery() > 0 ? 1 : 0);
 
                             database._connection.Close();
+						}
+						return false;
+						case General.Client.ProtocolId.TaskDeleteMembers:
+						{
+                                int nSessionId = ReadInt();
+                                UserData data = lUsers[nSessionId];
+                                if (data.nRoleLevel != 3 && data.nRoleLevel != 999) return false;
+
+                                newInterface._connection.Open();
+
+								string sEmployeeID = ReadString();
+
+								MySqlCommand cmd = new MySqlCommand($"DELETE task_executant_group FROM task_executant_group WHERE executant_employee_ID={sEmployeeID}", newInterface._connection);
+                                Write(cmd.ExecuteNonQuery() > 0 ? 1 : 0);
+
+								newInterface._connection.Close();
                         }
+						return false;
+						case General.Client.ProtocolId.DataWrite_Tasks:
+							{
+                                int nSessionId = ReadInt();
+                                UserData data = lUsers[nSessionId];
+                                if (data.nRoleLevel != 3 && data.nRoleLevel != 999) return false;
+
+                                newInterface._connection.Open();
+								string sTaskID = ReadString();
+                                MySqlCommand cmd = new MySqlCommand($"INSERT INTO tasks() task_executant_group(executant_employee_ID, tasks_ID) VALUES({data.sEmployeeId},{sTaskID})", newInterface._connection);
+                                Write(cmd.ExecuteNonQuery() > 0 ? 1 : 0);
+
+                                string sTaskDescription = ReadString();
+
+								newInterface._connection.Close();
+                            }
 							return false;
 						default:
 							return false;
@@ -577,6 +629,7 @@ namespace ASMaIoP.Server
 				catch(Exception e)
 
                 {
+					if (newInterface._connection.State == ConnectionState.Open) newInterface._connection.Close();
 					if (database._connection.State == ConnectionState.Open) database._connection.Close();
 					Console.WriteLine($"иди фикси ошибку:{e.Message}");
 					return false;
