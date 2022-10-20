@@ -69,8 +69,8 @@ namespace ASMaIoP.UserControl
                     string[] data = state.Split('.');
                     int Id = int.Parse(data[0]);
                     string StateTitle = data[1];
-                    hStates.Add(Id, StateTitle);
                     cmbStatus.Items.Add(new KeyValuePair<int, string>(Id, StateTitle));
+                    hStates.Add(Id, new KeyValuePair<int, string>(cmbStatus.Items.Count - 1, StateTitle));
                 }
 
                 int nCount = StaticApplication.Session.ReadInt();
@@ -113,14 +113,27 @@ namespace ASMaIoP.UserControl
 
             tbCreater.Text = $"{Task[0]} {Task[1]}";
             tbDescrption.Text = $"{Task[2]}";
-            cmbStatus.Items.Clear();
+            //cmbStatus.Text=Task[3];
+
+            int SelectedInx = 0;
+
+            foreach(DictionaryEntry de in hStates)
+            {
+                KeyValuePair<int, string> ValuePair = (KeyValuePair<int, string>)de.Value;
+                if (ValuePair.Value == Task[3])
+                {
+                    SelectedInx = ValuePair.Key;
+                }
+            }
+            cmbStatus.SelectedIndex = SelectedInx;
             //cmbStatus.Items.Add(Task[3]);
             tbStatus.Text = Task[3];
 
-            for(int i = 4; i < Task.Length; i++)
+            //foreach(ItemCollection item in cmbStatus.ItemsSource)
+            cmbMember.Items.Clear();
+            for (int i = 4; i < Task.Length; i++)
             {
-                string executant = Task[i];
-                cmbMember.Items.Clear();
+                string executant = Task[i];;
                 i++;
                 cmbMember.Items.Add(new KeyValuePair<int, string>(int.Parse(Task[i]), executant));
             }
@@ -210,10 +223,13 @@ namespace ASMaIoP.UserControl
             StaticApplication.Session.Write((int)General.Client.ProtocolId.DataSave_Tasks);
             StaticApplication.Session.Write(StaticApplication.Session.SessionId);
 
-            StaticApplication.Session.Write($"{nSelected.ToString()};");
+            int StateId = ((KeyValuePair<int,string>)cmbStatus.SelectedItem).Key;
+
+            StaticApplication.Session.Write($"{tbDescrption.Text};{StateId};{nSelected.ToString()}");
 
             CheckStatus(StaticApplication.Session.ReadInt());
 
+            StaticApplication.Session.Close();
         }
 
         private void ButtonDeleteMember_Click(object sender, RoutedEventArgs e)
@@ -228,7 +244,8 @@ namespace ASMaIoP.UserControl
             StaticApplication.Session.Write((int)General.Client.ProtocolId.TaskDeleteMembers);
             StaticApplication.Session.Write(StaticApplication.Session.SessionId);
 
-            StaticApplication.Session.Write($"{cmbMember.Text.ToString()}");
+            int EmployeeID = ((KeyValuePair<int, string>)cmbMember.SelectedItem).Key;
+            StaticApplication.Session.Write($"{EmployeeID}");
 
             CheckStatus(StaticApplication.Session.ReadInt());
 

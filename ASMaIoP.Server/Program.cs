@@ -147,13 +147,27 @@ namespace ASMaIoP.Server
 
                             newInterface._connection.Open();
 
-								//MySqlCommand cmd = new MySqlCommand($"UPDATE image INNER JOIN employee ON employee_image_ID=image_ID SET image_path={GeneratedPath} WHERE employee_ID={data.sEmployeeId}");
-							MySqlCommand cmd = new MySqlCommand($"INSERT INTO image(image_path) VALUES('{GeneratedPath}')", newInterface._connection);
+							DataTable dataTable = new DataTable();
+							MySqlDataAdapter adapter = new MySqlDataAdapter();
+							MySqlCommand Cmd2 = new MySqlCommand($"SELECT image_ID FROM image WHERE image_path='{GeneratedPath}'", database._connection);
+							adapter.SelectCommand = Cmd2;
+							adapter.Fill(dataTable);
 
-							cmd.ExecuteNonQuery();
-							cmd = new MySqlCommand($"UPDATE employee SET employee_image_ID=LAST_INSERT_ID() WHERE employee_ID={data.sEmployeeId}", newInterface._connection);
-							cmd.ExecuteNonQuery();
-								
+							if (dataTable.Rows.Count > 0)
+							{
+								string SImageId = dataTable.Rows[0].ItemArray[0].ToString();
+                                MySqlCommand cmd = new MySqlCommand($"UPDATE employee SET employee_image_ID{SImageId} WHERE employee_ID={data.sEmployeeId}", newInterface._connection);
+                                    cmd.ExecuteNonQuery();
+                            }
+							else
+							{
+                                    MySqlCommand cmd = new MySqlCommand($"INSERT INTO image(image_path) VALUES('{GeneratedPath}')", newInterface._connection);
+                                    cmd.ExecuteNonQuery();
+                                    cmd = new MySqlCommand($"UPDATE employee SET employee_image_ID=LAST_INSERT_ID() WHERE employee_ID={data.sEmployeeId}", newInterface._connection);
+                                    cmd.ExecuteNonQuery();
+                            }
+									//MySqlCommand cmd = new MySqlCommand($"UPDATE image INNER JOIN employee ON employee_image_ID=image_ID SET image_path={GeneratedPath} WHERE employee_ID={data.sEmployeeId}");
+                                    // SELECT image_ID FROM image WHERE image_path='res/1.png'
 							newInterface._connection.Close();
 						}
 							return false;
@@ -569,9 +583,35 @@ namespace ASMaIoP.Server
 
 							string sTaskID = ReadString();
 
-							MySqlCommand cmd = new MySqlCommand($"INSERT INTO task_executant_group(executant_employee_ID, tasks_ID) VALUES({data.sEmployeeId},{sTaskID})", database._connection);
+							MySqlCommand CheckCmd = new MySqlCommand($"SELECT executant_employee_ID FROM task_executant_group WHERE tasks_ID={sTaskID}", database._connection);
+							MySqlDataReader reader = CheckCmd.ExecuteReader();
+							while(reader.Read())
+							{
+								if (reader[0].ToString() == data.sEmployeeId)
+									{
+                                        database._connection.Close();
+                                        return false;
+                                    }
+							}
+								reader.Close();
 
-							database._connection.Close();
+                                //MySqlDataAdapter Adapter = new MySqlDataAdapter();
+                                //Adapter.SelectCommand = CheckCmd;
+
+                                //if(dataTable.Rows.Count > 0)
+                                //{
+                                //	if(data)
+                                //    database._connection.Close();
+                                //		return false;
+                                //}
+
+
+                             MySqlCommand cmd = new MySqlCommand($"INSERT INTO task_executant_group(executant_employee_ID, tasks_ID) VALUES({data.sEmployeeId},{sTaskID})", database._connection);
+
+							cmd.ExecuteNonQuery();
+
+
+                            database._connection.Close();
 						}
 						return false;
 						case General.Client.ProtocolId.DataSave_Tasks:
@@ -584,7 +624,7 @@ namespace ASMaIoP.Server
 
                                 string[] Data = ReadString().Split(';');
 
-							MySqlCommand cmd = new MySqlCommand($"UPDATE tasks SET tasks_description='{Data[1]}', tasks_st_ID={Data[2]} WHERE tasks_ID={Data[0]}",database._connection);
+							MySqlCommand cmd = new MySqlCommand($"UPDATE tasks SET tasks_description='{Data[0]}', tasks_st_ID={Data[1]} WHERE tasks_ID={Data[2]}",database._connection);
                             Write(cmd.ExecuteNonQuery() > 0 ? 1 : 0);
 
                             database._connection.Close();
